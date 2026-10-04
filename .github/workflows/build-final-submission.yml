@@ -1,0 +1,49 @@
+name: Build final CMP4294 submission
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-final-submission.yml"
+      - "report/Angish_Sapkota_26152255.tex"
+      - "report/build_report.sh"
+      - "report/verify_submission.py"
+      - "figures/**"
+      - "Angish_Sapkota_26152255.ipynb"
+      - "data/ecommerce_2000.csv"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install report dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-latex-extra fonts-noto-core poppler-utils zip
+          python -m pip install --upgrade pip
+          python -m pip install pymupdf pandas pillow
+
+      - name: Build PDF, render QA pages, and create ZIP
+        run: bash report/build_report.sh
+
+      - name: Verify final submission artifacts
+        run: python report/verify_submission.py
+
+      - name: Commit generated final artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Angish_Sapkota_26152255.pdf Angish_Sapkota_26152255.zip report/qa report/FINAL_SUBMISSION_QA.md
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Build verified final CMP4294 submission artifacts"
+            git push
+          fi
