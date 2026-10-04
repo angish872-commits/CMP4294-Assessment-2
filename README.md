@@ -20,7 +20,8 @@ One main technique: **K-Means clustering** (a descriptive machine-learning task)
 - The Kaggle page states 6,000 rows, but the actual file is the full UCI Online Retail dataset:
   **541,909 rows x 8 columns**.
 - Final project dataset `data/ecommerce_2000.csv`: **exactly 2,000 transaction rows x 8 columns**,
-  141 unique customers.
+  141 unique customers. The brief requires at least 200 rows and 4 attributes; 2,000 rows is our
+  chosen project scope, not an imposed maximum.
 - Generated reproducibly by `data/make_ecommerce_2000.py` (seed 42, customer-aware). Verified by an
   identical SHA-256 before and after regeneration.
 

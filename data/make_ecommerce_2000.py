@@ -5,6 +5,9 @@ Source : data/source/OnlineRetail.csv  (Kaggle umerkk12/online-retail-business,
          a copy of the UCI Online Retail dataset; 541,909 line-item rows).
 Output : data/ecommerce_2000.csv        (exactly 2,000 line-item rows).
 
+The brief requires a dataset of at least 200 rows and 4 attributes. The 2,000 rows here are
+our chosen project scope, not an imposed maximum.
+
 Why this method (customer-aware, NOT a naive random sample):
 - A naive 2,000-row sample leaves almost every customer with a single row,
   which destroys the repeated history needed for Recency/Frequency/Monetary.
@@ -26,7 +29,7 @@ SOURCE = DATA_DIR / "source" / "OnlineRetail.csv"
 OUTPUT = DATA_DIR / "ecommerce_2000.csv"
 
 SEED = 42                 # fixed seed for every random choice
-TARGET_ROWS = 2000        # assignment maximum for the project dataset
+TARGET_ROWS = 2000        # chosen project scope: the brief requires at least 200 rows and 4 attributes
 LINE_CAP = 3              # max line items kept per order (in 2,000-row budget)
 INV_CAP = 10              # max orders kept per customer
 DATE_FMT = "%d-%m-%Y %H:%M"

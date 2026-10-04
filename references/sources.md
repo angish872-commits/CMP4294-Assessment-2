@@ -18,17 +18,17 @@ No DOI, author, date or journal has been fabricated.
   Berkeley: University of California Press, pp. 281-297.
 - Lloyd, S.P. (1982) "Least squares quantization in PCM", IEEE Transactions on Information Theory,
   28(2), pp. 129-137.
-- scikit-learn developers (2024) sklearn.cluster.KMeans. Available at:
+- scikit-learn developers (no date) sklearn.cluster.KMeans. Available at:
   https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html (Accessed: 5 October 2026).
 
 ## Cluster evaluation (silhouette)
 - Rousseeuw, P.J. (1987) "Silhouettes: a graphical aid to the interpretation and validation of cluster
   analysis", Journal of Computational and Applied Mathematics, 20, pp. 53-65.
-- scikit-learn developers (2024) sklearn.metrics.silhouette_score. Available at:
+- scikit-learn developers (no date) sklearn.metrics.silhouette_score. Available at:
   https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html (Accessed: 5 October 2026).
 
 ## Feature scaling
-- scikit-learn developers (2024) sklearn.preprocessing.StandardScaler. Available at:
+- scikit-learn developers (no date) sklearn.preprocessing.StandardScaler. Available at:
   https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html (Accessed: 5 October 2026).
 
 ## RFM and customer segmentation
