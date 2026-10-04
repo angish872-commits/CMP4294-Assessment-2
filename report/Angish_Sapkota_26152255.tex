@@ -1,0 +1,237 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.5cm,bottom=2.7cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif}
+\setsansfont{Noto Sans}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{url}
+\usepackage{doi}
+\usepackage{amsmath}
+\usepackage{hanging}
+
+\definecolor{bcuBlue}{HTML}{1E73B7}
+\definecolor{tableGray}{HTML}{F1F1F1}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=bcuBlue,
+  citecolor=black,
+  pdfauthor={Student 26152255},
+  pdftitle={Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering}
+}
+\urlstyle{same}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{24pt}
+
+\titleformat{\section}{\bfseries\large}{\thesection.}{0.55em}{}[\vspace{0.35em}{\color{bcuBlue}\titlerule[0.7pt]}]
+\titlespacing*{\section}{0pt}{1.8em}{0.8em}
+
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=centering}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cfttoctitlefont}{\bfseries\Large}
+\renewcommand{\cftloftitlefont}{\bfseries\Large}
+\renewcommand{\cftlottitlefont}{\bfseries\Large}
+\setlength{\cftbeforesecskip}{0.35em}
+
+\newcommand{\GBP}{\textsterling}
+\newcommand{\reporttitle}{Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering}
+
+\begin{document}
+\justifying
+
+\thispagestyle{empty}
+\begin{center}
+{\Large\bfseries CMP4294 -- Introduction to Artificial Intelligence\par}
+\vspace{0.45cm}
+{\small Academic Year 2025--26\par}
+\vspace{1.4cm}
+{\color{bcuBlue}\rule{0.9\textwidth}{1.2pt}}\\[1.3cm]
+{\LARGE\bfseries \reporttitle\par}
+\vspace{1.0cm}
+{\large Assessment 2 -- Data Exploration Report\par}
+\vspace{0.25cm}
+{\large Technical Report\par}
+\vfill
+\begin{tabular}{rl}
+\textbf{Student number:} & 26152255\\[0.35cm]
+\textbf{Module code:} & CMP4294\\[0.35cm]
+\textbf{Assessment weighting:} & 60\%\\
+\end{tabular}
+\vfill
+{\small Birmingham City University\\Faculty of Computing, Engineering and the Built Environment\par}
+\vspace{0.8cm}
+{\color{bcuBlue}\rule{0.9\textwidth}{1.2pt}}
+\end{center}
+\clearpage
+
+\setcounter{page}{2}
+\tableofcontents
+\clearpage
+
+\listoffigures
+\vspace{1.2cm}
+\listoftables
+\clearpage
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+Raw retail transaction records rarely reveal which customers behave alike. This report examines whether K-Means clustering can identify meaningful behavioural groups in e-commerce purchasing data. A reproducible 2,000-row subset of the UCI Online Retail dataset was used to build Recency, Frequency and Monetary (RFM) features for 141 customers. The features were standardised, and $K=2$ to $8$ was tested using inertia and silhouette analysis. $K=4$ was selected (silhouette 0.4714) and was stable across twenty initialisations, producing four segments: high-value loyal, frequent regular, occasional, and lapsed or low-engagement. A key limitation is that the customer-aware subset compresses the upper Frequency and Monetary tails.
+\clearpage
+
+\section{Domain Description}
+E-commerce generates transaction-level data in which each row records a product purchased within an order. Individually, these rows describe what was sold; across many customers they carry behavioural information about how often people buy, how recently they bought and how much they spend. These patterns matter because customers differ widely in value and engagement, and retailers must decide where to focus limited retention and marketing effort. Customer segmentation groups customers who behave similarly, so that decisions can be framed around a few interpretable groups rather than thousands of individual histories. This report tests one data-driven way to form such groups without assuming that segmentation by itself improves sales.
+
+\section{Problem Definition}
+The research question is: \emph{can K-Means clustering identify meaningful customer groups from e-commerce purchasing behaviour so that the retailer can better understand high-value, regular, occasional and low-engagement customers?} Raw transaction records do not directly show which customers behave in similar ways. The task is descriptive rather than predictive: no outcome is forecast and no label is known in advance. The aim is to discover similar behavioural groups using one technique, K-Means clustering. Behaviour is summarised using Recency, Frequency and Monetary value, so each customer is represented by a small set of interpretable measures. Success is judged by whether the clusters are distinct, statistically supported and explainable in business terms.
+
+\section{Brief Literature Review}
+K-Means is a centroid-based clustering method introduced by MacQueen (1967) and formalised through least-squares quantisation by Lloyd (1982). It partitions observations into $K$ groups by minimising within-cluster variance, assigning each point to the nearest centroid under Euclidean distance. Two properties follow. First, distance is scale-sensitive, so variables measured in different units should be standardised before clustering (Pedregosa et al., 2011). Second, $K$ must be chosen in advance, which makes model selection a substantive decision rather than a default. Rousseeuw (1987) proposed the silhouette coefficient to assess how well a point fits its own cluster relative to the next closest, providing a separation measure alongside inertia.
+
+In customer analysis, RFM is a long-established representation in which Recency, Frequency and Monetary value summarise purchasing behaviour (Hughes, 1994; Fader, Hardie and Lee, 2005). Using the same Online Retail data family, Chen, Sain and Guo (2012) demonstrated RFM-based customer segmentation for online retail, showing the direct relevance of behavioural grouping to this domain. Market segmentation theory similarly frames customers as heterogeneous groups that may require different treatment (Wedel and Kamakura, 2000). Critically, K-Means assumes roughly spherical and comparable clusters and offers no causal explanation; it describes similarity only. These properties shape both the method used here and the interpretation of its outputs.
+
+\section{Dataset Description}
+The source is the UCI Online Retail dataset (Chen, 2015), accessed through a Kaggle mirror (Kaggle, 2021). UCI records 541,909 transaction rows and licenses the dataset under CC BY 4.0. Each row contains an invoice number, product code, description, quantity, invoice date, unit price, customer identifier and country; Table~\ref{tab:attrs} summarises these attributes. Because customer segmentation requires a customer key, a reproducible project dataset was built from rows with a valid CustomerID. The final dataset contains exactly 2,000 rows and eight columns, covering 141 unique customers, 139 of whom appear in two or more rows. The 2,000-row size is the chosen project scope, not an assessment maximum. Customers were grouped by order-frequency band and sampled round-robin with a fixed seed, keeping up to three line items per order and up to ten orders per customer.
+
+\begin{table}[H]
+\centering
+\caption{Dataset attributes.}\label{tab:attrs}
+\rowcolors{2}{tableGray}{white}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.24\textwidth} X}
+\rowcolor{bcuBlue}\color{white}Column & \color{white}Meaning\\
+InvoiceNo & Order identifier; a C prefix marks a cancellation\\
+StockCode & Product code\\
+Description & Product description\\
+Quantity & Units purchased on the line\\
+InvoiceDate & Date and time of the order\\
+UnitPrice & Price per unit (GBP)\\
+CustomerID & Customer identifier\\
+Country & Customer country\\
+\end{tabularx}
+\end{table}
+
+\section{Dataset Pre-processing}
+Cleaning began from the 2,000-row project dataset. Cancelled invoices, identified by an InvoiceNo beginning with C, were removed (185 rows), because they represent returns rather than purchases. One row with a non-positive unit price was removed as invalid, and no duplicate rows were found. The final cleaned dataset contains 1,814 rows and 141 customers. No missing CustomerID values required removal because a customer key was required when the subset was constructed. Transaction value was derived as $\text{TotalPrice}=\text{Quantity}\times\text{UnitPrice}$.
+
+RFM features were computed per customer against a reference date of 9 December 2011, one day after the last transaction: Recency is the number of days since the customer last purchased, Frequency is the number of distinct invoices, and Monetary is the sum of cleaned TotalPrice. The distributions are right-skewed, with a few high-spend customers, and are shown in Figure~\ref{fig:rfm}. No customers were deleted as outliers because they represent genuine high-value behaviour; the features were standardised instead. Three sampling constraints are limitations: at most three line items per order, at most ten orders per customer, and exclusion of customers with more than thirty source orders. These choices preserve repeated histories but compress the upper Frequency and Monetary tails.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{03_rfm_distributions.png}
+\caption{RFM distributions for the 141 customers.}\label{fig:rfm}
+\end{figure}
+
+\section{Experiment -- K-Means Clustering}
+K-Means requires numerical inputs on a comparable scale. Recency is measured in days, Frequency in orders and Monetary in pounds, so Monetary would otherwise dominate Euclidean distance and the segments would mainly reflect spend. All three features were therefore standardised with StandardScaler to mean zero and standard deviation one (Pedregosa et al., 2011). Clustering used a fixed \texttt{random\_state=42} and \texttt{n\_init=10}. The number of clusters was not assumed. $K=2$ to $8$ was evaluated using inertia, which decreases as $K$ rises, and the silhouette coefficient, which measures cluster separation (Rousseeuw, 1987). Table~\ref{tab:k} reports the results, with the elbow plotted in Figure~\ref{fig:elbow} and the silhouette scores in Figure~\ref{fig:sil}.
+
+\begin{table}[H]
+\centering
+\caption{Evaluation of candidate values of K.}\label{tab:k}
+\rowcolors{2}{tableGray}{white}
+\begin{tabular}{>{\bfseries}c rr}
+\rowcolor{bcuBlue}\color{white}K & \color{white}Inertia & \color{white}Silhouette\\
+2 & 247.11 & 0.4103\\
+3 & 157.79 & 0.4329\\
+4 & 91.01 & 0.4714\\
+5 & 73.21 & 0.4625\\
+6 & 56.88 & 0.4693\\
+7 & 43.30 & 0.4270\\
+8 & 38.53 & 0.3896\\
+\end{tabular}
+\end{table}
+
+Inertia falls sharply up to $K=4$ and flattens afterwards, while the silhouette score peaks at $K=4$ (0.4714). $K=4$ was therefore selected: it has the highest measured separation, the elbow begins to flatten, and four groups remain interpretable. This is a modelling decision rather than a natural truth because $K=4$, $5$ and $6$ produce relatively close silhouette scores. To test dependence on initialisation, $K=4$ was re-fitted across random-state values from 0 to 19 with \texttt{n\_init=10}. Silhouette was 0.4714 in every run, the mean Adjusted Rand Index against the reference solution was 1.0, and the cluster-size signature was identical in all runs. The solution is stable across the tested initialisations for this dataset, although this does not establish stability across different samples.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{04_elbow_method.png}
+\caption{Elbow method: inertia against the number of clusters.}\label{fig:elbow}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{05_silhouette_scores.png}
+\caption{Silhouette score against the number of clusters.}\label{fig:sil}
+\end{figure}
+
+\clearpage
+\section{Analysis of Results and Conclusion}
+The four clusters differ clearly in the measured behaviour, summarised in Table~\ref{tab:profiles} and shown in Figures~\ref{fig:scatter} and \ref{fig:profiles}. Cluster 0 contains eleven customers who bought recently (mean Recency 26.55 days), most often (mean Frequency 8.45 orders) and with by far the highest spend (mean Monetary \GBP1,811.52); this is best described as a high-value loyal group. Cluster 2 (forty customers) is also recent and frequent (Recency 24.02; Frequency 7.92) but with moderate spend (\GBP415.52), suggesting a frequent regular group. Cluster 1 is larger (sixty customers) but purchases far less often (Frequency 2.87) and spends little (\GBP187.98), indicating an occasional group. Cluster 3 (thirty customers) is least recent (Recency 223.73 days), least frequent (1.80 orders) and lowest spend (\GBP126.28), consistent with a lapsed or low-engagement group. The numeric identifiers are arbitrary; the labels are analyst interpretations of the computed profiles rather than ground truth. Median Monetary values (\GBP1,577.24, \GBP371.08, \GBP159.37 and \GBP86.43 respectively) preserve the same ordering, so the interpretation is not driven by means alone.
+
+\begin{table}[H]
+\centering
+\caption{Cluster profiles for the final K-Means model ($K=4$).}\label{tab:profiles}
+\small
+\rowcolors{2}{tableGray}{white}
+\begin{tabularx}{\textwidth}{>{\bfseries}c c c c c X}
+\rowcolor{bcuBlue}\color{white}Cluster & \color{white}Customers & \color{white}Recency & \color{white}Frequency & \color{white}Monetary (GBP) & \color{white}Interpretation\\
+0 & 11 & 26.55 & 8.45 & 1,811.52 & High-value loyal\\
+2 & 40 & 24.02 & 7.92 & 415.52 & Frequent regular\\
+1 & 60 & 38.98 & 2.87 & 187.98 & Occasional\\
+3 & 30 & 223.73 & 1.80 & 126.28 & Lapsed / low-engagement\\
+\end{tabularx}
+\end{table}
+
+Business implications follow from these profiles and are stated as possibilities. Retention or loyalty attention may be appropriate for the high-value loyal group, given its recent and frequent behaviour. The frequent regular group buys often at lower spend, so there may be potential to increase basket value. The occasional group is numerous but infrequent, suggesting an opportunity to encourage repeat purchases. The lapsed group could be a candidate for reactivation campaigns. These are hypotheses for later testing; the clustering data do not measure campaign effectiveness.
+
+Several limitations qualify the findings. Customer-aware sampling preserves repeated behaviour but changes the original distribution, and capping line items and orders compresses the upper tails; consequently, 141 customers cannot automatically represent the complete retailer population. RFM also ignores product mix, margin, acquisition source, marketing exposure and website activity. K-Means assumes roughly spherical clusters, and $K$ selection remains a modelling decision. Most importantly, clustering identifies similarity, not causation. Within these limits, the research question is supported: K-Means identified meaningful behavioural groupings in this project sample, but the segments require cautious interpretation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.70\textwidth]{06_customer_clusters.png}
+\caption{Customer clusters: Frequency versus Monetary value.}\label{fig:scatter}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{07_cluster_profiles.png}
+\caption{Mean Recency, Frequency and Monetary value by cluster.}\label{fig:profiles}
+\end{figure}
+
+\clearpage
+\section*{References}
+\addcontentsline{toc}{section}{References}
+\begin{hangparas}{1.5em}{1}
+Chen, D. (2015) \textit{Online Retail}. [dataset] UCI Machine Learning Repository. Available at: \url{https://doi.org/10.24432/C5BW33} [Accessed 5 October 2026].
+
+Chen, D., Sain, S.L. and Guo, K. (2012) Data mining for the online retail industry: A case study of RFM model-based customer segmentation using data mining. \textit{Journal of Database Marketing \& Customer Strategy Management}, 19(3), pp. 197--208. \url{https://doi.org/10.1057/dbm.2012.17}.
+
+Fader, P.S., Hardie, B.G.S. and Lee, K.L. (2005) RFM and CLV: Using iso-value curves for customer base analysis. \textit{Journal of Marketing Research}, 42(4), pp. 415--430. \url{https://doi.org/10.1509/jmkr.2005.42.4.415}.
+
+Hughes, A.M. (1994) \textit{Strategic Database Marketing}. Chicago: Probus Publishing.
+
+Kaggle (2021) \textit{Online Retail Business}. [dataset] Available at: \url{https://www.kaggle.com/datasets/umerkk12/online-retail-business} [Accessed 5 October 2026].
+
+Lloyd, S.P. (1982) Least squares quantization in PCM. \textit{IEEE Transactions on Information Theory}, 28(2), pp. 129--137. \url{https://doi.org/10.1109/TIT.1982.1056489}.
+
+MacQueen, J. (1967) Some methods for classification and analysis of multivariate observations. In: \textit{Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Volume 1}. Berkeley: University of California Press, pp. 281--297.
+
+Pedregosa, F. et al. (2011) Scikit-learn: Machine learning in Python. \textit{Journal of Machine Learning Research}, 12, pp. 2825--2830.
+
+Rousseeuw, P.J. (1987) Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. \textit{Journal of Computational and Applied Mathematics}, 20, pp. 53--65. \url{https://doi.org/10.1016/0377-0427(87)90125-7}.
+
+Wedel, M. and Kamakura, W.A. (2000) \textit{Market Segmentation: Conceptual and Methodological Foundations}. 2nd edn. Boston: Kluwer Academic Publishers.
+\end{hangparas}
+
+\end{document}
