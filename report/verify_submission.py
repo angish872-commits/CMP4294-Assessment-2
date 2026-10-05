@@ -62,7 +62,7 @@ add("Required sections present", all(h in all_text for h in required), "All requ
 add("Contents page present", "Contents" in page_text[1], "Page 2")
 add("Table of Figures present", "Table of Figures" in page_text[2], "Page 3")
 add("Acknowledgement present", "Acknowledgement" in all_text, "Front matter includes acknowledgement")
-add("Colab access present", "colab.research.google.com" in all_text, "Clickable Colab notebook URL is present")
+add("Anonymous external-link content", "angish872" not in all_text.lower() and "Angish_Sapkota" not in all_text, "Repository identity and named notebook path are absent from PDF content")
 add("CSV evidence present", "VINTAGE DOILY TRAVEL SEWING KIT" in all_text, "Report includes actual CSV preview rows")
 
 for caption in [
@@ -72,7 +72,7 @@ for caption in [
     "Elbow method: inertia against the number of clusters",
     "Silhouette score against the number of clusters",
     "Customer clusters: Frequency versus Monetary value",
-    "Mean Recency, Frequency and Monetary value by cluster",
+    "Mean cluster profiles. Units are Recency in days",
 ]:
     add(f"Figure caption: {caption[:30]}", caption in all_text, caption)
 
@@ -195,8 +195,10 @@ lines += [
     "",
     "- Cover page follows the supplied sample's information structure without copying its project content.",
     "- Contents and Table of Figures are complete.",
-    "- Code evidence is readable and comes from the submitted notebook.",
+    "- Report content is anonymous: no student name or repository identity is displayed.",
+    "- Code evidence reflects the current notebook loading/inspection logic and is readable.",
     "- CSV preview uses actual rows from ecommerce_2000.csv.",
+    "- Figure 1 explicitly states zero missing values and explains the overlapping cancellation/non-positive-quantity counts.",
     "- Tables and figures are complete with no footer overlap.",
     "- No black boxes, clipped text, overlapping elements, or broken glyphs.",
     "- References are alphabetical and consistent.",
