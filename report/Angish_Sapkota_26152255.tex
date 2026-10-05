@@ -101,6 +101,7 @@
 \newcommand{\reporttitle}{Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering}
 
 \begin{document}
+\raggedbottom
 \justifying
 
 % ---------- COVER: closely follows the supplied sample ----------
@@ -147,12 +148,7 @@ Purchasing Behaviour and K-Means Clustering\par}
 
 \vfill
 {\large 5 October 2026\par}
-\vspace{0.75cm}
-
-\begin{minipage}{0.88\textwidth}
-\raggedright
-\textbf{Table of Contents}
-\end{minipage}
+\vspace{0.9cm}
 \end{center}
 \clearpage
 
@@ -183,10 +179,12 @@ Raw retail transaction records rarely reveal which customers behave alike. This 
 \section{Domain Description}
 E-commerce generates transaction-level data in which each row records a product purchased within an order. Individually, these rows describe what was sold; across many customers they carry behavioural information about how often people buy, how recently they bought and how much they spend. These patterns matter because customers differ widely in value and engagement, and retailers must decide where to focus limited retention and marketing effort. Customer segmentation groups customers who behave similarly, so that decisions can be framed around a few interpretable groups rather than thousands of individual histories. This report tests one data-driven way to form such groups without assuming that segmentation by itself improves sales.
 
+\clearpage
 \section{Problem Definition}
 The research question is: \emph{can K-Means clustering identify meaningful customer groups from e-commerce purchasing behaviour so that the retailer can better understand high-value, regular, occasional and low-engagement customers?} Raw transaction records do not directly show which customers behave in similar ways. The task is descriptive rather than predictive: no outcome is forecast and no label is known in advance. The aim is to discover similar behavioural groups using one technique, K-Means clustering. Behaviour is summarised using Recency, Frequency and Monetary value, so each customer is represented by a small set of interpretable measures. Success is judged by whether the clusters are distinct, statistically supported and explainable in business terms.
 
 % ---------- LITERATURE ----------
+\clearpage
 \section{Literature Review}
 \subsection{K-Means Clustering}
 K-Means is a centroid-based clustering method introduced by MacQueen (1967) and formalised through least-squares quantisation by Lloyd (1982). It partitions observations into $K$ groups by minimising within-cluster variance, assigning each point to the nearest centroid under Euclidean distance. Two properties are especially important here. First, distance is scale-sensitive, so variables measured in different units should be standardised before clustering (Pedregosa et al., 2011). Second, $K$ must be chosen in advance, which makes model selection a substantive decision rather than a default.
@@ -263,6 +261,7 @@ Country & Categorical & Customer country\\
 \end{table}
 
 % ---------- PREPROCESSING ----------
+\clearpage
 \section{Data Pre-Processing}
 \subsection{Loading and Inspecting the Dataset}
 The notebook loads the submitted CSV and checks its shape, data types, missing values, duplicates, cancellations, quantities and prices.
@@ -413,6 +412,7 @@ Three sampling constraints must be acknowledged: at most three line items per or
 \clearpage
 
 % ---------- DESCRIPTIVE ANALYSIS ----------
+\clearpage
 \section{Descriptive Analysis Techniques}
 \subsection{RFM Distributions}
 Figure~\ref{fig:rfm} shows that Recency and Monetary are strongly right-skewed. Most customers have relatively recent activity and modest spend, while a small group of customers account for much larger monetary values. Frequency is bounded by the sampling design, which explains the visible upper limit at ten orders. These distributions justify scaling before Euclidean-distance clustering.
@@ -441,6 +441,7 @@ print("Scaled stds :",
 \end{lstlisting}
 
 % ---------- EXPERIMENT ----------
+\clearpage
 \section{Experiments -- K-Means Clustering}
 \subsection{Selecting the Number of Clusters}
 The number of clusters was not chosen arbitrarily. Candidate solutions from $K=2$ through $8$ were fitted with a fixed random seed and \texttt{n\_init=10}. Inertia and silhouette score were recorded for each candidate.
@@ -588,6 +589,7 @@ Distinct cluster-size signatures: 1
 \end{lstlisting}
 
 % ---------- RESULTS ----------
+\clearpage
 \section{Analysis of Results and Conclusion}
 \subsection{Cluster Results}
 The four clusters differ clearly in the measured behaviour. Cluster 0 contains eleven customers who bought recently (mean Recency 26.55 days), most often (mean Frequency 8.45 orders) and with by far the highest spend (mean Monetary \GBP1,811.52); this is best described as a high-value loyal group. Cluster 2 (forty customers) is also recent and frequent (Recency 24.02; Frequency 7.92) but with moderate spend (\GBP415.52), suggesting a frequent regular group. Cluster 1 is larger (sixty customers) but purchases far less often (Frequency 2.87) and spends little (\GBP187.98), indicating an occasional group. Cluster 3 (thirty customers) is least recent (Recency 223.73 days), least frequent (1.80 orders) and lowest spend (\GBP126.28), consistent with a lapsed or low-engagement group. The numeric identifiers are arbitrary; the business labels are interpretations of the computed profiles rather than ground truth.
@@ -609,10 +611,35 @@ The four clusters differ clearly in the measured behaviour. Cluster 0 contains e
 Business implications follow from the observed profiles and are stated as possibilities rather than proven campaign effects. Retention or loyalty attention may be appropriate for the high-value loyal group, given its recent and frequent behaviour. The frequent regular group buys often at lower spend, so there may be potential to increase basket value. The occasional group is numerous but infrequent, suggesting an opportunity to encourage repeat purchases. The lapsed group could be a candidate for reactivation campaigns. These are hypotheses for later testing; the clustering data do not measure whether any intervention would increase revenue.
 
 \subsection{Strengths and Limitations}
-The analysis is reproducible and uses one taught method throughout. $K$ was selected using two complementary measures, the final clusters were profiled with interpretable customer statistics, and the robustness test shows the chosen solution is not sensitive to the tested initialisations. However, customer-aware sampling changes the original distribution. Capping line items and orders compresses the upper Frequency and Monetary tails, so the 141 customers cannot automatically represent the full retailer population. RFM also ignores product mix, margin, acquisition source, marketing exposure and website activity. K-Means assumes roughly spherical clusters, and $K$ selection remains a modelling decision. Most importantly, clustering identifies similarity, not causation.
+
+\noindent\textbf{Strengths}
+\begin{itemize}[leftmargin=2em,itemsep=0.25em,topsep=0.35em]
+\item The analysis is reproducible and uses one taught method throughout.
+\item $K$ was selected using both inertia and silhouette evidence rather than an arbitrary choice.
+\item The final clusters were profiled with interpretable RFM statistics and supported by a 20-initialisation robustness check.
+\item The resulting segments are easy to interpret in business terms while the report avoids causal claims.
+\end{itemize}
+
+\noindent\textbf{Limitations}
+\begin{itemize}[leftmargin=2em,itemsep=0.25em,topsep=0.35em]
+\item Customer-aware sampling changes the original distribution and compresses the upper Frequency and Monetary tails.
+\item The 141 sampled customers cannot automatically represent the complete Online Retail population.
+\item RFM omits product mix, margin, acquisition source, marketing exposure and website activity.
+\item K-Means assumes roughly spherical clusters, and selection of $K$ remains a modelling decision.
+\item Clustering identifies similarity between customers; it does not establish causation.
+\end{itemize}
 
 \subsection{Conclusion}
-The research question is supported for this project sample. K-Means identified four meaningful behavioural groupings from standardised RFM features: high-value loyal, frequent regular, occasional, and lapsed or low-engagement customers. $K=4$ produced the highest silhouette score (0.4714), aligned with the inertia elbow and remained stable across twenty tested initialisations. The segments offer a useful descriptive view of purchasing behaviour, but the sampling design and RFM limitations mean that the results should be interpreted cautiously rather than generalised automatically to the complete Online Retail population.
+The project supports the research question for this sample:
+
+\begin{itemize}[leftmargin=2em,itemsep=0.28em,topsep=0.4em]
+\item K-Means identified four meaningful behavioural groups from standardised RFM features.
+\item The selected solution was $K=4$, which achieved the highest silhouette score of 0.4714 and aligned with the inertia elbow.
+\item The four interpreted segments were high-value loyal, frequent regular, occasional, and lapsed or low-engagement customers.
+\item The $K=4$ result remained stable across twenty tested initialisations.
+\item The segments provide a useful descriptive view of customer purchasing behaviour and can guide hypotheses for retention, basket-value and reactivation strategies.
+\item The findings should be interpreted cautiously because the 2,000-row customer-aware sample compresses the upper behavioural tails and cannot automatically be generalised to the full Online Retail population.
+\end{itemize}
 
 % ---------- REFERENCES ----------
 \clearpage
