@@ -10,7 +10,7 @@
 - Notebook: 40 cells (18 code)
 - Approximate main-body word count: 2005 (code listings and figures excluded)
 - Abstract word count: 105
-- Rendered page brightness mean: 228.5
+- Rendered page brightness mean: 228.4
 - Maximum black-pixel ratio: 0.3408
 
 ## Checks
@@ -19,15 +19,15 @@
 - PASS - **Final ZIP exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
 - PASS - **LaTeX source exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
 - PASS - **PDF page count**: 22 pages
-- PASS - **Anonymous report content**: Student name absent from PDF content
+- PASS - **Student name present**: Cover contains MD Sapota
 - PASS - **Student number present**: Cover contains student number
 - PASS - **Module code present**: Cover contains CMP4294
-- PASS - **Cover has sample-style fields**: Cover includes the same field structure as the supplied sample while preserving anonymity
+- PASS - **Cover has sample-style fields**: Cover includes the supplied sample structure, student name, ID and module leader
 - PASS - **Required sections present**: All required/sample-aligned sections found
 - PASS - **Contents page present**: Page 2
 - PASS - **Table of Figures present**: Page 3
 - PASS - **Acknowledgement present**: Front matter includes acknowledgement
-- PASS - **Anonymous external-link content**: Repository identity and named notebook path are absent from PDF content
+- PASS - **Repository link omitted from report**: Repository identity is not displayed inside the report
 - PASS - **CSV evidence present**: Report includes actual CSV preview rows
 - PASS - **Figure caption: Data-quality issues in the 2,0**: Data-quality issues in the 2,000-row project dataset
 - PASS - **Figure caption: Distribution of cleaned transa**: Distribution of cleaned transaction value
@@ -48,7 +48,7 @@
 - PASS - **Code evidence: groupby**: groupby
 - PASS - **No replacement glyphs**: No Unicode replacement characters found
 - PASS - **Rendered QA page count**: 22 rendered PNGs
-- PASS - **Visual sanity page-01.png**: 1191x1684, mean=251.4, black_ratio=0.0109
+- PASS - **Visual sanity page-01.png**: 1191x1684, mean=250.3, black_ratio=0.0125
 - PASS - **Visual sanity page-02.png**: 1191x1684, mean=248.7, black_ratio=0.0155
 - PASS - **Visual sanity page-03.png**: 1191x1684, mean=250.0, black_ratio=0.0125
 - PASS - **Visual sanity page-04.png**: 1191x1684, mean=251.5, black_ratio=0.0086
@@ -79,9 +79,9 @@
 
 ## Manual visual review checklist
 
-- Cover page follows the supplied sample's information structure without copying its project content.
+- Cover page follows the supplied sample's visual/information structure and includes Sunway + BCU branding.
+- Cover contains MD Sapota, student ID 26152255 and module leader Mariam Adedoyin-Olowe.
 - Contents and Table of Figures are complete.
-- Report content is anonymous: no student name or repository identity is displayed.
 - Code evidence reflects the current notebook loading/inspection logic and is readable.
 - CSV preview uses actual rows from ecommerce_2000.csv.
 - Figure 1 explicitly states zero missing values and explains the overlapping cancellation/non-positive-quantity counts.
