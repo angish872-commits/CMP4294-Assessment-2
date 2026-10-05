@@ -36,6 +36,7 @@ PY
 cd "$ROOT"
 rm -f "${FINAL_BASENAME}.zip"
 zip -j "${FINAL_BASENAME}.zip" \
+    "${FINAL_BASENAME}.pdf" \
     "${FINAL_BASENAME}.ipynb" \
     "data/ecommerce_2000.csv" >/dev/null
 
