@@ -69,8 +69,8 @@
 - PASS - **Visual sanity page-19.png**: 1191x1684, mean=181.0, black_ratio=0.2737
 - PASS - **Visual sanity page-20.png**: 1191x1684, mean=185.1, black_ratio=0.2716
 - PASS - **Visual sanity page-21.png**: 1191x1684, mean=244.6, black_ratio=0.0172
-- PASS - **Visual sanity page-22.png**: 1191x1684, mean=244.0, black_ratio=0.0275
-- PASS - **Visual sanity page-23.png**: 1191x1684, mean=251.7, black_ratio=0.0080
+- PASS - **Visual sanity page-22.png**: 1191x1684, mean=245.6, black_ratio=0.0234
+- PASS - **Visual sanity page-23.png**: 1191x1684, mean=250.1, black_ratio=0.0121
 - PASS - **Visual sanity page-24.png**: 1191x1684, mean=245.4, black_ratio=0.0208
 - PASS - **Visual sanity page-25.png**: 1191x1684, mean=251.2, black_ratio=0.0094
 - PASS - **ZIP contents exact**: ['Angish_Sapkota_26152255.ipynb', 'ecommerce_2000.csv']
