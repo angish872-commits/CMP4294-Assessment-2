@@ -13,18 +13,18 @@ The ZIP has been automatically verified to contain **only**:
 ## Final technical checks
 
 - [x] Final PDF generated from the canonical LaTeX source
-- [x] 11 PDF pages rendered and visually inspected
+- [x] 22 PDF pages rendered and visually inspected
 - [x] No black boxes, clipped text or overlapping tables
 - [x] Table of Contents correct
 - [x] List of Figures correct
 - [x] List of Tables correct
-- [x] 5 selected figures readable
-- [x] 3 tables complete
+- [x] 7 selected figures readable
+- [x] 6 tables complete
 - [x] Anonymous PDF content: student number only
 - [x] Required CMP4294 report sections present
-- [x] Main-body word count approximately 1,591
+- [x] Main-body word count approximately 1,995, excluding code listings and figures
 - [x] Abstract approximately 105 words
-- [x] References alphabetical and aligned with the final report
+- [x] 7 notebook code excerpts included and readable\n- [x] Google Colab link and CSV preview included\n- [x] References alphabetical and aligned with the final report
 - [x] Final dataset 2,000 rows x 8 columns
 - [x] Notebook 37 cells, including 18 code cells
 - [x] K-Means results and report values match the verified analysis
