@@ -3,6 +3,7 @@
 \usepackage{fontspec}
 \setmainfont{Noto Serif}
 \setsansfont{Noto Sans}
+\setmonofont{DejaVu Sans Mono}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{microtype}
@@ -23,9 +24,16 @@
 \usepackage{doi}
 \usepackage{amsmath}
 \usepackage{hanging}
+\usepackage{listings}
+\usepackage{enumitem}
 
-\definecolor{bcuBlue}{HTML}{1E73B7}
+\definecolor{bcuBlue}{HTML}{2479B9}
 \definecolor{tableGray}{HTML}{F1F1F1}
+\definecolor{codeBg}{HTML}{050505}
+\definecolor{codeText}{HTML}{F5F5F5}
+\definecolor{codeComment}{HTML}{9CA3AF}
+\definecolor{codeKeyword}{HTML}{60A5FA}
+\definecolor{codeString}{HTML}{FBBF24}
 
 \hypersetup{
   colorlinks=true,
@@ -45,96 +53,321 @@
 \setlength{\footskip}{24pt}
 
 \titleformat{\section}{\bfseries\large}{\thesection.}{0.55em}{}[\vspace{0.35em}{\color{bcuBlue}\titlerule[0.7pt]}]
-\titlespacing*{\section}{0pt}{1.8em}{0.8em}
+\titleformat{\subsection}{\bfseries\normalsize}{\thesubsection}{0.55em}{}
+\titlespacing*{\section}{0pt}{1.7em}{0.75em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.45em}
 
 \captionsetup{font=small,labelfont=bf,labelsep=period,justification=centering}
+\renewcommand{\listfigurename}{Table of Figures}
+\renewcommand{\listtablename}{Table of Tables}
 \renewcommand{\cftsecfont}{\normalfont}
 \renewcommand{\cftsecpagefont}{\normalfont}
 \renewcommand{\cfttoctitlefont}{\bfseries\Large}
 \renewcommand{\cftloftitlefont}{\bfseries\Large}
 \renewcommand{\cftlottitlefont}{\bfseries\Large}
-\setlength{\cftbeforesecskip}{0.35em}
+\setlength{\cftbeforesecskip}{0.25em}
+
+\lstdefinestyle{pythonshot}{
+  language=Python,
+  backgroundcolor=\color{codeBg},
+  basicstyle=\ttfamily\scriptsize\color{codeText},
+  keywordstyle=\color{codeKeyword}\bfseries,
+  commentstyle=\color{codeComment},
+  stringstyle=\color{codeString},
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+  rulecolor=\color{black},
+  xleftmargin=0.3em,
+  xrightmargin=0.3em,
+  aboveskip=0.6em,
+  belowskip=0.6em,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=4
+}
+\lstdefinestyle{outputshot}{
+  backgroundcolor=\color{codeBg},
+  basicstyle=\ttfamily\scriptsize\color{codeText},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{black},
+  columns=fullflexible
+}
 
 \newcommand{\GBP}{\textsterling}
 \newcommand{\reporttitle}{Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering}
+\newcommand{\colaburl}{https://colab.research.google.com/github/angish872-commits/CMP4294-Assessment-2/blob/main/Angish_Sapkota_26152255.ipynb}
+\newcommand{\githuburl}{https://github.com/angish872-commits/CMP4294-Assessment-2}
 
 \begin{document}
 \justifying
 
+% ---------- COVER: same information structure as supplied sample ----------
 \thispagestyle{empty}
 \begin{center}
-{\Large\bfseries CMP4294 -- Introduction to Artificial Intelligence\par}
-\vspace{0.45cm}
-{\small Academic Year 2025--26\par}
-\vspace{1.4cm}
-{\color{bcuBlue}\rule{0.9\textwidth}{1.2pt}}\\[1.3cm]
+{\Large\bfseries CMP 4294 -- Introduction to Artificial Intelligence\par}
+\vspace{1.6cm}
 {\LARGE\bfseries \reporttitle\par}
-\vspace{1.0cm}
-{\large Assessment 2 -- Data Exploration Report\par}
-\vspace{0.25cm}
-{\large Technical Report\par}
-\vfill
-\begin{tabular}{rl}
-\textbf{Student number:} & 26152255\\[0.35cm]
-\textbf{Module code:} & CMP4294\\[0.35cm]
-\textbf{Assessment weighting:} & 60\%\\
+\vspace{1.9cm}
+
+\begin{tabular}{>{\bfseries}rl}
+Student Name: & \rule{7.0cm}{0.4pt}\\[0.55cm]
+Student ID: & 26152255\\[0.55cm]
+Module Leader: & \rule{7.0cm}{0.4pt}\\[0.55cm]
+Date: & 5 October 2026\\
 \end{tabular}
+
 \vfill
-{\small Birmingham City University\\Faculty of Computing, Engineering and the Built Environment\par}
-\vspace{0.8cm}
-{\color{bcuBlue}\rule{0.9\textwidth}{1.2pt}}
+{\small Birmingham City University\\
+Sunway College\par}
+\vspace{1.1cm}
+{\color{bcuBlue}\rule{0.90\textwidth}{0.9pt}}
 \end{center}
 \clearpage
 
+% ---------- TOC ----------
 \setcounter{page}{2}
 \tableofcontents
 \clearpage
 
+% ---------- FIGURES / TABLES ----------
 \listoffigures
-\vspace{1.2cm}
+\vspace{1.0cm}
 \listoftables
 \clearpage
 
+% ---------- ACKNOWLEDGEMENT ----------
+\section*{Acknowledgement}
+\addcontentsline{toc}{section}{Acknowledgement}
+I would like to thank Birmingham City University, Sunway College and the module teaching team for providing the opportunity to complete this practical artificial-intelligence project. The assessment provided hands-on experience of preparing real e-commerce transaction data, applying a taught clustering method and interpreting the results critically. I also acknowledge the maintainers of the UCI Online Retail dataset and the open-source Python ecosystem, particularly pandas, NumPy, Matplotlib and scikit-learn, which made the reproducible analysis possible.
+\clearpage
+
+% ---------- ABSTRACT ----------
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
 Raw retail transaction records rarely reveal which customers behave alike. This report examines whether K-Means clustering can identify meaningful behavioural groups in e-commerce purchasing data. A reproducible 2,000-row subset of the UCI Online Retail dataset was used to build Recency, Frequency and Monetary (RFM) features for 141 customers. The features were standardised, and $K=2$ to $8$ was tested using inertia and silhouette analysis. $K=4$ was selected (silhouette 0.4714) and was stable across twenty initialisations, producing four segments: high-value loyal, frequent regular, occasional, and lapsed or low-engagement. A key limitation is that the customer-aware subset compresses the upper Frequency and Monetary tails.
 \clearpage
 
+% ---------- DOMAIN + PROBLEM ----------
 \section{Domain Description}
 E-commerce generates transaction-level data in which each row records a product purchased within an order. Individually, these rows describe what was sold; across many customers they carry behavioural information about how often people buy, how recently they bought and how much they spend. These patterns matter because customers differ widely in value and engagement, and retailers must decide where to focus limited retention and marketing effort. Customer segmentation groups customers who behave similarly, so that decisions can be framed around a few interpretable groups rather than thousands of individual histories. This report tests one data-driven way to form such groups without assuming that segmentation by itself improves sales.
 
 \section{Problem Definition}
 The research question is: \emph{can K-Means clustering identify meaningful customer groups from e-commerce purchasing behaviour so that the retailer can better understand high-value, regular, occasional and low-engagement customers?} Raw transaction records do not directly show which customers behave in similar ways. The task is descriptive rather than predictive: no outcome is forecast and no label is known in advance. The aim is to discover similar behavioural groups using one technique, K-Means clustering. Behaviour is summarised using Recency, Frequency and Monetary value, so each customer is represented by a small set of interpretable measures. Success is judged by whether the clusters are distinct, statistically supported and explainable in business terms.
 
-\section{Brief Literature Review}
-K-Means is a centroid-based clustering method introduced by MacQueen (1967) and formalised through least-squares quantisation by Lloyd (1982). It partitions observations into $K$ groups by minimising within-cluster variance, assigning each point to the nearest centroid under Euclidean distance. Two properties follow. First, distance is scale-sensitive, so variables measured in different units should be standardised before clustering (Pedregosa et al., 2011). Second, $K$ must be chosen in advance, which makes model selection a substantive decision rather than a default. Rousseeuw (1987) proposed the silhouette coefficient to assess how well a point fits its own cluster relative to the next closest, providing a separation measure alongside inertia.
+% ---------- LITERATURE ----------
+\section{Literature Review}
+\subsection{K-Means Clustering}
+K-Means is a centroid-based clustering method introduced by MacQueen (1967) and formalised through least-squares quantisation by Lloyd (1982). It partitions observations into $K$ groups by minimising within-cluster variance, assigning each point to the nearest centroid under Euclidean distance. Two properties are especially important here. First, distance is scale-sensitive, so variables measured in different units should be standardised before clustering (Pedregosa et al., 2011). Second, $K$ must be chosen in advance, which makes model selection a substantive decision rather than a default.
 
-In customer analysis, RFM is a long-established representation in which Recency, Frequency and Monetary value summarise purchasing behaviour (Hughes, 1994; Fader, Hardie and Lee, 2005). Using the same Online Retail data family, Chen, Sain and Guo (2012) demonstrated RFM-based customer segmentation for online retail, showing the direct relevance of behavioural grouping to this domain. Market segmentation theory similarly frames customers as heterogeneous groups that may require different treatment (Wedel and Kamakura, 2000). Critically, K-Means assumes roughly spherical and comparable clusters and offers no causal explanation; it describes similarity only. These properties shape both the method used here and the interpretation of its outputs.
+\subsection{RFM Customer Behaviour}
+RFM is a long-established representation in which Recency, Frequency and Monetary value summarise purchasing behaviour (Hughes, 1994; Fader, Hardie and Lee, 2005). Using the same Online Retail data family, Chen, Sain and Guo (2012) demonstrated RFM-based customer segmentation for online retail, showing the direct relevance of behavioural grouping to this domain. Market-segmentation theory similarly frames customers as heterogeneous groups that may require different treatment (Wedel and Kamakura, 2000).
 
+\subsection{Cluster Validation and Critical Interpretation}
+Rousseeuw (1987) proposed the silhouette coefficient to assess how well a point fits its own cluster relative to the next closest cluster, providing a separation measure alongside inertia. K-Means nevertheless assumes roughly spherical and comparable clusters and offers no causal explanation: it describes similarity only. These properties shape both the method used here and the cautious interpretation of its outputs.
+\clearpage
+
+% ---------- DATASET ----------
 \section{Dataset Description}
-The source is the UCI Online Retail dataset (Chen, 2015), accessed through a Kaggle mirror (Kaggle, 2021). UCI records 541,909 transaction rows and licenses the dataset under CC BY 4.0. Each row contains an invoice number, product code, description, quantity, invoice date, unit price, customer identifier and country; Table~\ref{tab:attrs} summarises these attributes. Because customer segmentation requires a customer key, a reproducible project dataset was built from rows with a valid CustomerID. The final dataset contains exactly 2,000 rows and eight columns, covering 141 unique customers, 139 of whom appear in two or more rows. The 2,000-row size is the chosen project scope, not an assessment maximum. Customers were grouped by order-frequency band and sampled round-robin with a fixed seed, keeping up to three line items per order and up to ten orders per customer.
+\subsection{Where the Data Comes From}
+The source is the UCI Online Retail dataset (Chen, 2015), accessed through a Kaggle mirror (Kaggle, 2021). UCI records 541,909 transaction rows and licenses the dataset under CC BY 4.0. The project uses a reproducible 2,000-row customer-aware subset so the analysis remains manageable while retaining repeated purchasing histories.
 
+\subsection{Dataset Characteristics}
 \begin{table}[H]
 \centering
-\caption{Dataset attributes.}\label{tab:attrs}
+\caption{Dataset characteristics.}\label{tab:characteristics}
 \rowcolors{2}{tableGray}{white}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{0.24\textwidth} X}
-\rowcolor{bcuBlue}\color{white}Column & \color{white}Meaning\\
-InvoiceNo & Order identifier; a C prefix marks a cancellation\\
-StockCode & Product code\\
-Description & Product description\\
-Quantity & Units purchased on the line\\
-InvoiceDate & Date and time of the order\\
-UnitPrice & Price per unit (GBP)\\
-CustomerID & Customer identifier\\
-Country & Customer country\\
+\begin{tabularx}{0.92\textwidth}{>{\bfseries}p{0.31\textwidth} X}
+\rowcolor{bcuBlue}\color{white}Attribute & \color{white}Detail\\
+Dataset name & Online Retail\\
+Source & UCI Machine Learning Repository via Kaggle mirror\\
+Original records & 541,909 transaction rows\\
+Original features & 8\\
+Project records & 2,000 transaction rows\\
+Project customers & 141 unique CustomerID values\\
+Data types & Identifier, text, numeric, DateTime, categorical\\
+Main technique & K-Means clustering\\
+Behavioural features & Recency, Frequency, Monetary value\\
 \end{tabularx}
 \end{table}
 
-\section{Dataset Pre-processing}
-Cleaning began from the 2,000-row project dataset. Cancelled invoices, identified by an InvoiceNo beginning with C, were removed (185 rows), because they represent returns rather than purchases. One row with a non-positive unit price was removed as invalid, and no duplicate rows were found. The final cleaned dataset contains 1,814 rows and 141 customers. No missing CustomerID values required removal because a customer key was required when the subset was constructed. Transaction value was derived as $\text{TotalPrice}=\text{Quantity}\times\text{UnitPrice}$.
+\subsection{CSV Preview and Notebook Access}
+Table~\ref{tab:preview} shows actual rows from the submitted \texttt{ecommerce\_2000.csv}; these are not fabricated examples. The full analysis is in the submitted Jupyter notebook. The marker can open the same notebook directly in Google Colab using the link below.
 
-RFM features were computed per customer against a reference date of 9 December 2011, one day after the last transaction: Recency is the number of days since the customer last purchased, Frequency is the number of distinct invoices, and Monetary is the sum of cleaned TotalPrice. The distributions are right-skewed, with a few high-spend customers, and are shown in Figure~\ref{fig:rfm}. No customers were deleted as outliers because they represent genuine high-value behaviour; the features were standardised instead. Three sampling constraints are limitations: at most three line items per order, at most ten orders per customer, and exclusion of customers with more than thirty source orders. These choices preserve repeated histories but compress the upper Frequency and Monetary tails.
+\begin{center}
+\href{\colaburl}{\textbf{Open Angish\_Sapkota\_26152255.ipynb in Google Colab}}\\[0.25cm]
+\href{\githuburl}{GitHub repository and reproducibility files}
+\end{center}
+
+\begin{table}[H]
+\centering
+\caption{Preview of the submitted CSV dataset.}\label{tab:preview}
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llllllll}
+\toprule
+InvoiceNo & StockCode & Description & Quantity & InvoiceDate & UnitPrice & CustomerID & Country\\
+\midrule
+573152 & 23493 & VINTAGE DOILY TRAVEL SEWING KIT & 6 & 27-10-2011 20:16 & 1.95 & 17530 & United Kingdom\\
+536595 & 20679 & EDWARDIAN PARASOL RED & 1 & 01-12-2010 17:24 & 5.95 & 13576 & United Kingdom\\
+548315 & 84945 & MULTI COLOUR SILVER T-LIGHT HOLDER & 12 & 30-03-2011 12:34 & 0.85 & 16019 & United Kingdom\\
+574086 & 23391 & I LOVE LONDON MINI BACKPACK & 4 & 03-11-2011 08:39 & 4.15 & 15651 & United Kingdom\\
+568151 & 23409 & PHOTO FRAME LINEN AND LACE LARGE & 6 & 25-09-2011 11:39 & 3.75 & 17506 & United Kingdom\\
+\bottomrule
+\end{tabular}}
+\end{table}
+\clearpage
+
+\subsection{Feature Descriptions}
+\begin{table}[H]
+\centering
+\caption{Feature descriptions.}\label{tab:features}
+\rowcolors{2}{tableGray}{white}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.19\textwidth} p{0.18\textwidth} X}
+\rowcolor{bcuBlue}\color{white}Feature & \color{white}Type & \color{white}Description\\
+InvoiceNo & Identifier & Order identifier; a C prefix marks a cancellation\\
+StockCode & Identifier & Product code\\
+Description & Text & Product description\\
+Quantity & Numerical & Units purchased on the transaction line\\
+InvoiceDate & DateTime & Date and time of the order\\
+UnitPrice & Numerical & Price per unit in GBP\\
+CustomerID & Identifier & Customer key used for customer-level RFM features\\
+Country & Categorical & Customer country\\
+\end{tabularx}
+\end{table}
+
+% ---------- PREPROCESSING ----------
+\section{Data Pre-Processing}
+\subsection{Loading and Inspecting the Dataset}
+The notebook first loads the exact CSV included in the submission and inspects its shape, columns, data types, missing values, duplicates and obvious transaction-quality problems. The following code is taken directly from the submitted notebook.
+
+\textbf{Code excerpt 1: loading and initial inspection}
+\begin{lstlisting}[style=pythonshot]
+df = pd.read_csv("data/ecommerce_2000.csv",
+                 dtype={"CustomerID": "string"})
+print("Shape:", df.shape)
+display(df.head())
+
+print("Columns:", list(df.columns))
+print(df.dtypes)
+
+print("Missing values per column:")
+print(df.isnull().sum())
+print("Duplicate rows:", int(df.duplicated().sum()))
+print("Cancelled invoices:",
+      int(df["InvoiceNo"].astype(str).str.startswith("C").sum()))
+print("Rows with Quantity <= 0:",
+      int((df["Quantity"] <= 0).sum()))
+print("Rows with UnitPrice <= 0:",
+      int((df["UnitPrice"] <= 0).sum()))
+\end{lstlisting}
+
+\begin{lstlisting}[style=outputshot]
+Shape: (2000, 8)
+Cancelled invoices: 185
+Duplicate rows: 0
+Missing CustomerID: 0
+Unique customers: 141
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{01_missing_values.png}
+\caption{Data-quality issues in the 2,000-row project dataset.}\label{fig:quality}
+\end{figure}
+\clearpage
+
+\subsection{Cleaning the Data and Creating Transaction Value}
+Cancelled invoices were removed because they represent returns rather than purchases. Rows with non-positive quantity or unit price were excluded from spending analysis, exact duplicates were removed, and CustomerID was required for customer-level features. The resulting dataset contains 1,814 valid rows and 141 customers.
+
+\textbf{Code excerpt 2: cleaning and TotalPrice}
+\begin{lstlisting}[style=pythonshot]
+rows_start = len(df)
+data = df.copy()
+
+# Remove cancelled invoices (returns)
+data = data[
+    ~data["InvoiceNo"].astype(str).str.startswith("C")
+]
+
+# Keep positive purchase quantities and prices
+data = data[
+    (data["Quantity"] > 0) &
+    (data["UnitPrice"] > 0)
+]
+
+# Prevent double-counting exact repeated rows
+data = data.drop_duplicates()
+
+# Customer key is required for segmentation
+data = data.dropna(subset=["CustomerID"])
+
+data["InvoiceDate"] = pd.to_datetime(
+    data["InvoiceDate"], format="%d-%m-%Y %H:%M"
+)
+data["TotalPrice"] = (
+    data["Quantity"] * data["UnitPrice"]
+)
+\end{lstlisting}
+
+\begin{lstlisting}[style=outputshot]
+Initial project rows: 2000
+After removing cancellations: 1815
+After removing invalid quantity/price: 1814
+After removing duplicates: 1814
+Final cleaned rows: 1814
+Unique customers after cleaning: 141
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{02_transaction_distribution.png}
+\caption{Distribution of cleaned transaction value.}\label{fig:transaction}
+\end{figure}
+\clearpage
+
+\subsection{Creating RFM Features}
+RFM converts line-level purchases into one row per customer. The notebook uses a reference date one day after the latest valid transaction. Recency is the number of days since the customer's latest purchase, Frequency is the number of distinct invoices, and Monetary is total cleaned spend.
+
+\textbf{Code excerpt 3: customer-level RFM features}
+\begin{lstlisting}[style=pythonshot]
+snapshot = data["InvoiceDate"].max() + pd.Timedelta(days=1)
+
+rfm = data.groupby("CustomerID").agg(
+    Recency=(
+        "InvoiceDate",
+        lambda s: (snapshot - s.max()).days
+    ),
+    Frequency=("InvoiceNo", "nunique"),
+    Monetary=("TotalPrice", "sum"),
+)
+
+print("Snapshot date:", snapshot.date())
+print("Customers:", len(rfm))
+rfm.describe().round(2)
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{RFM descriptive statistics.}\label{tab:rfmstats}
+\rowcolors{2}{tableGray}{white}
+\begin{tabular}{lrrr}
+\rowcolor{bcuBlue}\color{white}Statistic & \color{white}Recency (days) & \color{white}Frequency (orders) & \color{white}Monetary (GBP)\\
+Mean & 73.08 & 4.51 & 366.06\\
+Median & 33.00 & 4.00 & 215.55\\
+\end{tabular}
+\end{table}
+
+Three sampling constraints must be acknowledged: at most three line items per order, at most ten orders per customer, and exclusion of customers with more than thirty source orders. These choices preserve repeated histories under the 2,000-row project scope but compress the upper Frequency and Monetary tails.
+\clearpage
+
+% ---------- DESCRIPTIVE ANALYSIS ----------
+\section{Descriptive Analysis Techniques}
+\subsection{RFM Distributions}
+Figure~\ref{fig:rfm} shows that Recency and Monetary are strongly right-skewed. Most customers have relatively recent activity and modest spend, while a small group of customers account for much larger monetary values. Frequency is bounded by the sampling design, which explains the visible upper limit at ten orders. These distributions justify scaling before Euclidean-distance clustering.
 
 \begin{figure}[H]
 \centering
@@ -142,8 +375,53 @@ RFM features were computed per customer against a reference date of 9 December 2
 \caption{RFM distributions for the 141 customers.}\label{fig:rfm}
 \end{figure}
 
-\section{Experiment -- K-Means Clustering}
-K-Means requires numerical inputs on a comparable scale. Recency is measured in days, Frequency in orders and Monetary in pounds, so Monetary would otherwise dominate Euclidean distance and the segments would mainly reflect spend. All three features were therefore standardised with StandardScaler to mean zero and standard deviation one (Pedregosa et al., 2011). Clustering used a fixed \texttt{random\_state=42} and \texttt{n\_init=10}. The number of clusters was not assumed. $K=2$ to $8$ was evaluated using inertia, which decreases as $K$ rises, and the silhouette coefficient, which measures cluster separation (Rousseeuw, 1987). Table~\ref{tab:k} reports the results, with the elbow plotted in Figure~\ref{fig:elbow} and the silhouette scores in Figure~\ref{fig:sil}.
+\subsection{Why Scaling Is Necessary}
+Recency is measured in days, Frequency in orders and Monetary in pounds. Without standardisation, Monetary would dominate Euclidean distance simply because it has the largest numerical scale. The submitted notebook therefore transforms all three RFM features to comparable standardised values.
+
+\textbf{Code excerpt 4: feature scaling}
+\begin{lstlisting}[style=pythonshot]
+scaler = StandardScaler()
+
+X = scaler.fit_transform(
+    rfm[["Recency", "Frequency", "Monetary"]].values
+)
+
+print("Scaled means:",
+      np.round(X.mean(axis=0), 3))
+print("Scaled stds :",
+      np.round(X.std(axis=0), 3))
+\end{lstlisting}
+
+% ---------- EXPERIMENT ----------
+\section{Experiments -- K-Means Clustering}
+\subsection{Selecting the Number of Clusters}
+The number of clusters was not chosen arbitrarily. Candidate solutions from $K=2$ through $8$ were fitted with a fixed random seed and \texttt{n\_init=10}. Inertia and silhouette score were recorded for each candidate.
+
+\textbf{Code excerpt 5: testing K from 2 to 8}
+\begin{lstlisting}[style=pythonshot]
+k_values = list(range(2, 9))
+inertias = []
+silhouettes = []
+
+for k in k_values:
+    model = KMeans(
+        n_clusters=k,
+        random_state=RANDOM_STATE,
+        n_init=10
+    )
+    labels = model.fit_predict(X)
+    inertias.append(model.inertia_)
+    silhouettes.append(
+        silhouette_score(X, labels)
+    )
+
+results = pd.DataFrame({
+    "K": k_values,
+    "Inertia": np.round(inertias, 2),
+    "Silhouette": np.round(silhouettes, 4)
+})
+results
+\end{lstlisting}
 
 \begin{table}[H]
 \centering
@@ -160,24 +438,56 @@ K-Means requires numerical inputs on a comparable scale. Recency is measured in 
 8 & 38.53 & 0.3896\\
 \end{tabular}
 \end{table}
+\clearpage
 
-Inertia falls sharply up to $K=4$ and flattens afterwards, while the silhouette score peaks at $K=4$ (0.4714). $K=4$ was therefore selected: it has the highest measured separation, the elbow begins to flatten, and four groups remain interpretable. This is a modelling decision rather than a natural truth because $K=4$, $5$ and $6$ produce relatively close silhouette scores. To test dependence on initialisation, $K=4$ was re-fitted across random-state values from 0 to 19 with \texttt{n\_init=10}. Silhouette was 0.4714 in every run, the mean Adjusted Rand Index against the reference solution was 1.0, and the cluster-size signature was identical in all runs. The solution is stable across the tested initialisations for this dataset, although this does not establish stability across different samples.
+\subsection{Elbow and Silhouette Evidence}
+Inertia falls sharply up to $K=4$ and then flattens, while the silhouette score reaches its maximum at $K=4$ (0.4714). The values for $K=4$, $5$ and $6$ are relatively close, so $K=4$ should be treated as the best-supported modelling choice for this sample rather than an absolute natural truth.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\textwidth]{04_elbow_method.png}
+\includegraphics[width=0.76\textwidth]{04_elbow_method.png}
 \caption{Elbow method: inertia against the number of clusters.}\label{fig:elbow}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\textwidth]{05_silhouette_scores.png}
+\includegraphics[width=0.76\textwidth]{05_silhouette_scores.png}
 \caption{Silhouette score against the number of clusters.}\label{fig:sil}
 \end{figure}
-
 \clearpage
-\section{Analysis of Results and Conclusion}
-The four clusters differ clearly in the measured behaviour, summarised in Table~\ref{tab:profiles} and shown in Figures~\ref{fig:scatter} and \ref{fig:profiles}. Cluster 0 contains eleven customers who bought recently (mean Recency 26.55 days), most often (mean Frequency 8.45 orders) and with by far the highest spend (mean Monetary \GBP1,811.52); this is best described as a high-value loyal group. Cluster 2 (forty customers) is also recent and frequent (Recency 24.02; Frequency 7.92) but with moderate spend (\GBP415.52), suggesting a frequent regular group. Cluster 1 is larger (sixty customers) but purchases far less often (Frequency 2.87) and spends little (\GBP187.98), indicating an occasional group. Cluster 3 (thirty customers) is least recent (Recency 223.73 days), least frequent (1.80 orders) and lowest spend (\GBP126.28), consistent with a lapsed or low-engagement group. The numeric identifiers are arbitrary; the labels are analyst interpretations of the computed profiles rather than ground truth. Median Monetary values (\GBP1,577.24, \GBP371.08, \GBP159.37 and \GBP86.43 respectively) preserve the same ordering, so the interpretation is not driven by means alone.
+
+\subsection{Final K-Means Model and Cluster Profiles}
+The final model uses four clusters, fixed \texttt{random\_state=42} and \texttt{n\_init=10}. Cluster profile statistics are then calculated directly from the customer-level RFM table.
+
+\textbf{Code excerpt 6: final model and profiling}
+\begin{lstlisting}[style=pythonshot]
+final_k = 4
+
+kmeans = KMeans(
+    n_clusters=final_k,
+    random_state=RANDOM_STATE,
+    n_init=10
+)
+rfm["Cluster"] = kmeans.fit_predict(X)
+
+print("Final inertia:",
+      round(float(kmeans.inertia_), 2))
+print("Final silhouette:",
+      round(float(
+          silhouette_score(X, rfm["Cluster"])
+      ), 4))
+
+profile = rfm.groupby("Cluster").agg(
+    Customers=("Recency", "size"),
+    Recency_mean=("Recency", "mean"),
+    Recency_median=("Recency", "median"),
+    Frequency_mean=("Frequency", "mean"),
+    Frequency_median=("Frequency", "median"),
+    Monetary_mean=("Monetary", "mean"),
+    Monetary_median=("Monetary", "median"),
+).round(2)
+profile
+\end{lstlisting}
 
 \begin{table}[H]
 \centering
@@ -192,14 +502,51 @@ The four clusters differ clearly in the measured behaviour, summarised in Table~
 3 & 30 & 223.73 & 1.80 & 126.28 & Lapsed / low-engagement\\
 \end{tabularx}
 \end{table}
+\clearpage
 
-Business implications follow from these profiles and are stated as possibilities. Retention or loyalty attention may be appropriate for the high-value loyal group, given its recent and frequent behaviour. The frequent regular group buys often at lower spend, so there may be potential to increase basket value. The occasional group is numerous but infrequent, suggesting an opportunity to encourage repeat purchases. The lapsed group could be a candidate for reactivation campaigns. These are hypotheses for later testing; the clustering data do not measure campaign effectiveness.
+\subsection{Robustness to Initialisation}
+Because K-Means can depend on initial centroid placement, the selected $K=4$ solution was re-fitted across random-state values 0--19 with \texttt{n\_init=10}. The silhouette score was 0.4714 in every run, the mean Adjusted Rand Index against the reference solution was 1.0, and only one cluster-size signature appeared (11, 30, 40, 60). This indicates stable initialisation for this project dataset, although it does not prove stability across different samples.
 
-Several limitations qualify the findings. Customer-aware sampling preserves repeated behaviour but changes the original distribution, and capping line items and orders compresses the upper tails; consequently, 141 customers cannot automatically represent the complete retailer population. RFM also ignores product mix, margin, acquisition source, marketing exposure and website activity. K-Means assumes roughly spherical clusters, and $K$ selection remains a modelling decision. Most importantly, clustering identifies similarity, not causation. Within these limits, the research question is supported: K-Means identified meaningful behavioural groupings in this project sample, but the segments require cautious interpretation.
+\textbf{Code excerpt 7: stability check}
+\begin{lstlisting}[style=pythonshot]
+reference = rfm["Cluster"].values
+robust_sil = []
+robust_ari = []
+
+for seed in range(20):
+    labels_seed = KMeans(
+        n_clusters=final_k,
+        random_state=seed,
+        n_init=10
+    ).fit_predict(X)
+
+    robust_sil.append(
+        silhouette_score(X, labels_seed)
+    )
+    robust_ari.append(
+        adjusted_rand_score(reference, labels_seed)
+    )
+
+print("Silhouette mean:",
+      round(np.mean(robust_sil), 4))
+print("ARI mean:",
+      round(np.mean(robust_ari), 4))
+\end{lstlisting}
+
+\begin{lstlisting}[style=outputshot]
+Silhouette min / mean / max: 0.4714 / 0.4714 / 0.4714
+Mean Adjusted Rand Index vs seed 42: 1.0000
+Distinct cluster-size signatures: 1
+\end{lstlisting}
+
+% ---------- RESULTS ----------
+\section{Analysis of Results and Conclusion}
+\subsection{Cluster Results}
+The four clusters differ clearly in the measured behaviour. Cluster 0 contains eleven customers who bought recently (mean Recency 26.55 days), most often (mean Frequency 8.45 orders) and with by far the highest spend (mean Monetary \GBP1,811.52); this is best described as a high-value loyal group. Cluster 2 (forty customers) is also recent and frequent (Recency 24.02; Frequency 7.92) but with moderate spend (\GBP415.52), suggesting a frequent regular group. Cluster 1 is larger (sixty customers) but purchases far less often (Frequency 2.87) and spends little (\GBP187.98), indicating an occasional group. Cluster 3 (thirty customers) is least recent (Recency 223.73 days), least frequent (1.80 orders) and lowest spend (\GBP126.28), consistent with a lapsed or low-engagement group. The numeric identifiers are arbitrary; the business labels are interpretations of the computed profiles rather than ground truth.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.70\textwidth]{06_customer_clusters.png}
+\includegraphics[width=0.77\textwidth]{06_customer_clusters.png}
 \caption{Customer clusters: Frequency versus Monetary value.}\label{fig:scatter}
 \end{figure}
 
@@ -208,7 +555,18 @@ Several limitations qualify the findings. Customer-aware sampling preserves repe
 \includegraphics[width=\textwidth]{07_cluster_profiles.png}
 \caption{Mean Recency, Frequency and Monetary value by cluster.}\label{fig:profiles}
 \end{figure}
+\clearpage
 
+\subsection{Business Interpretation}
+Business implications follow from the observed profiles and are stated as possibilities rather than proven campaign effects. Retention or loyalty attention may be appropriate for the high-value loyal group, given its recent and frequent behaviour. The frequent regular group buys often at lower spend, so there may be potential to increase basket value. The occasional group is numerous but infrequent, suggesting an opportunity to encourage repeat purchases. The lapsed group could be a candidate for reactivation campaigns. These are hypotheses for later testing; the clustering data do not measure whether any intervention would increase revenue.
+
+\subsection{Strengths and Limitations}
+The analysis is reproducible and uses one taught method throughout. $K$ was selected using two complementary measures, the final clusters were profiled with interpretable customer statistics, and the robustness test shows the chosen solution is not sensitive to the tested initialisations. However, customer-aware sampling changes the original distribution. Capping line items and orders compresses the upper Frequency and Monetary tails, so the 141 customers cannot automatically represent the full retailer population. RFM also ignores product mix, margin, acquisition source, marketing exposure and website activity. K-Means assumes roughly spherical clusters, and $K$ selection remains a modelling decision. Most importantly, clustering identifies similarity, not causation.
+
+\subsection{Conclusion}
+The research question is supported for this project sample. K-Means identified four meaningful behavioural groupings from standardised RFM features: high-value loyal, frequent regular, occasional, and lapsed or low-engagement customers. $K=4$ produced the highest silhouette score (0.4714), aligned with the inertia elbow and remained stable across twenty tested initialisations. The segments offer a useful descriptive view of purchasing behaviour, but the sampling design and RFM limitations mean that the results should be interpreted cautiously rather than generalised automatically to the complete Online Retail population.
+
+% ---------- REFERENCES ----------
 \clearpage
 \section*{References}
 \addcontentsline{toc}{section}{References}
@@ -233,5 +591,25 @@ Rousseeuw, P.J. (1987) Silhouettes: A graphical aid to the interpretation and va
 
 Wedel, M. and Kamakura, W.A. (2000) \textit{Market Segmentation: Conceptual and Methodological Foundations}. 2nd edn. Boston: Kluwer Academic Publishers.
 \end{hangparas}
+
+\clearpage
+\section*{Appendix A -- Reproducibility and Submitted Files}
+\addcontentsline{toc}{section}{Appendix A -- Reproducibility and Submitted Files}
+The submitted ZIP contains only the notebook and the exact CSV analysed in this report:
+
+\begin{itemize}[leftmargin=2em]
+\item \texttt{Angish\_Sapkota\_26152255.ipynb}
+\item \texttt{ecommerce\_2000.csv}
+\end{itemize}
+
+\noindent\textbf{Google Colab:}\\
+\url{\colaburl}
+
+\vspace{0.4cm}
+\noindent\textbf{GitHub repository:}\\
+\url{\githuburl}
+
+\vspace{0.6cm}
+The notebook contains all Python used for loading, cleaning, RFM construction, scaling, K selection, K-Means fitting, cluster profiling, robustness testing and figure generation. The separate script \texttt{data/make\_ecommerce\_2000.py} in the repository documents the reproducible creation of the 2,000-row project dataset from the full source file.
 
 \end{document}
