@@ -1,24 +1,24 @@
 # Final Submission QA
 
-**Overall:** PASS (61/61 checks)
+**Overall:** PASS (64/64 checks)
 
 - Final PDF: Angish_Sapkota_26152255.pdf
-- PDF pages: 22
+- PDF pages: 25
 - Final ZIP: Angish_Sapkota_26152255.zip
 - ZIP contents: Angish_Sapkota_26152255.ipynb, ecommerce_2000.csv
 - Dataset: 2000 rows x 8 columns
 - Notebook: 40 cells (18 code)
-- Approximate main-body word count: 2005 (code listings and figures excluded)
+- Approximate main-body word count: 2080 (code listings and figures excluded)
 - Abstract word count: 105
-- Rendered page brightness mean: 228.4
-- Maximum black-pixel ratio: 0.3408
+- Rendered page brightness mean: 231.5
+- Maximum black-pixel ratio: 0.4099
 
 ## Checks
 
 - PASS - **Final PDF exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.pdf
 - PASS - **Final ZIP exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
 - PASS - **LaTeX source exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
-- PASS - **PDF page count**: 22 pages
+- PASS - **PDF page count**: 25 pages
 - PASS - **Student name present**: Cover contains MD Sapota
 - PASS - **Student number present**: Cover contains student number
 - PASS - **Module code present**: Cover contains CMP4294
@@ -47,33 +47,36 @@
 - PASS - **Code evidence: final_k**: final_k
 - PASS - **Code evidence: groupby**: groupby
 - PASS - **No replacement glyphs**: No Unicode replacement characters found
-- PASS - **Rendered QA page count**: 22 rendered PNGs
-- PASS - **Visual sanity page-01.png**: 1191x1684, mean=250.3, black_ratio=0.0125
+- PASS - **Rendered QA page count**: 25 rendered PNGs
+- PASS - **Visual sanity page-01.png**: 1191x1684, mean=250.5, black_ratio=0.0121
 - PASS - **Visual sanity page-02.png**: 1191x1684, mean=248.7, black_ratio=0.0155
 - PASS - **Visual sanity page-03.png**: 1191x1684, mean=250.0, black_ratio=0.0125
 - PASS - **Visual sanity page-04.png**: 1191x1684, mean=251.5, black_ratio=0.0086
 - PASS - **Visual sanity page-05.png**: 1191x1684, mean=250.7, black_ratio=0.0104
-- PASS - **Visual sanity page-06.png**: 1191x1684, mean=238.7, black_ratio=0.0398
-- PASS - **Visual sanity page-07.png**: 1191x1684, mean=252.2, black_ratio=0.0070
-- PASS - **Visual sanity page-08.png**: 1191x1684, mean=241.7, black_ratio=0.0220
-- PASS - **Visual sanity page-09.png**: 1191x1684, mean=179.9, black_ratio=0.2693
-- PASS - **Visual sanity page-10.png**: 1191x1684, mean=213.3, black_ratio=0.1539
-- PASS - **Visual sanity page-11.png**: 1191x1684, mean=167.3, black_ratio=0.3408
-- PASS - **Visual sanity page-12.png**: 1191x1684, mean=253.0, black_ratio=0.0019
-- PASS - **Visual sanity page-13.png**: 1191x1684, mean=211.7, black_ratio=0.1572
-- PASS - **Visual sanity page-14.png**: 1191x1684, mean=215.7, black_ratio=0.1385
-- PASS - **Visual sanity page-15.png**: 1191x1684, mean=198.9, black_ratio=0.2177
-- PASS - **Visual sanity page-16.png**: 1191x1684, mean=251.4, black_ratio=0.0078
-- PASS - **Visual sanity page-17.png**: 1191x1684, mean=181.0, black_ratio=0.2737
-- PASS - **Visual sanity page-18.png**: 1191x1684, mean=179.5, black_ratio=0.2852
-- PASS - **Visual sanity page-19.png**: 1191x1684, mean=250.1, black_ratio=0.0036
-- PASS - **Visual sanity page-20.png**: 1191x1684, mean=242.6, black_ratio=0.0306
-- PASS - **Visual sanity page-21.png**: 1191x1684, mean=245.4, black_ratio=0.0208
-- PASS - **Visual sanity page-22.png**: 1191x1684, mean=251.2, black_ratio=0.0094
+- PASS - **Visual sanity page-06.png**: 1191x1684, mean=250.4, black_ratio=0.0112
+- PASS - **Visual sanity page-07.png**: 1191x1684, mean=250.4, black_ratio=0.0111
+- PASS - **Visual sanity page-08.png**: 1191x1684, mean=245.1, black_ratio=0.0245
+- PASS - **Visual sanity page-09.png**: 1191x1684, mean=241.7, black_ratio=0.0220
+- PASS - **Visual sanity page-10.png**: 1191x1684, mean=247.6, black_ratio=0.0076
+- PASS - **Visual sanity page-11.png**: 1191x1684, mean=149.6, black_ratio=0.4099
+- PASS - **Visual sanity page-12.png**: 1191x1684, mean=251.2, black_ratio=0.0058
+- PASS - **Visual sanity page-13.png**: 1191x1684, mean=167.3, black_ratio=0.3408
+- PASS - **Visual sanity page-14.png**: 1191x1684, mean=253.0, black_ratio=0.0019
+- PASS - **Visual sanity page-15.png**: 1191x1684, mean=211.7, black_ratio=0.1572
+- PASS - **Visual sanity page-16.png**: 1191x1684, mean=221.2, black_ratio=0.1200
+- PASS - **Visual sanity page-17.png**: 1191x1684, mean=193.4, black_ratio=0.2362
+- PASS - **Visual sanity page-18.png**: 1191x1684, mean=251.3, black_ratio=0.0078
+- PASS - **Visual sanity page-19.png**: 1191x1684, mean=181.0, black_ratio=0.2737
+- PASS - **Visual sanity page-20.png**: 1191x1684, mean=185.1, black_ratio=0.2716
+- PASS - **Visual sanity page-21.png**: 1191x1684, mean=244.6, black_ratio=0.0172
+- PASS - **Visual sanity page-22.png**: 1191x1684, mean=244.0, black_ratio=0.0275
+- PASS - **Visual sanity page-23.png**: 1191x1684, mean=251.7, black_ratio=0.0080
+- PASS - **Visual sanity page-24.png**: 1191x1684, mean=245.4, black_ratio=0.0208
+- PASS - **Visual sanity page-25.png**: 1191x1684, mean=251.2, black_ratio=0.0094
 - PASS - **ZIP contents exact**: ['Angish_Sapkota_26152255.ipynb', 'ecommerce_2000.csv']
 - PASS - **Dataset dimensions**: 2000 rows x 8 columns
 - PASS - **Notebook structure**: 40 cells; 18 code
-- PASS - **Main-body word-count range**: approx. 2005 words excluding code listings/figures
+- PASS - **Main-body word-count range**: approx. 2080 words excluding code listings/figures
 - PASS - **Abstract word-count range**: 105 words
 - PASS - **References alphabetical**: Reference entries found in expected alphabetical order
 
