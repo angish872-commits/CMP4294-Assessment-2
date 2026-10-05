@@ -5,12 +5,15 @@
 **Student:** Angish Sapkota (26152255)  
 **Project title:** Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering
 
-## Submission-ready files
+## FINAL SUBMISSION FILES
 
-- **Final PDF:** `Angish_Sapkota_26152255.pdf`
-- **Final ZIP:** `Angish_Sapkota_26152255.zip`
-  - `Angish_Sapkota_26152255.ipynb`
-  - `ecommerce_2000.csv`
+1. `Angish_Sapkota_26152255.pdf`
+2. `Angish_Sapkota_26152255.zip`
+
+The ZIP contains exactly these two files:
+
+- `Angish_Sapkota_26152255.ipynb`
+- `ecommerce_2000.csv`
 
 The PDF itself follows the brief's anonymous-marking instruction and contains the **student number only**. The full-name filename follows the working submission naming convention.
 
@@ -46,15 +49,19 @@ One main technique: **K-Means clustering** (a descriptive machine-learning task)
 
 ## Notebook
 
-`Angish_Sapkota_26152255.ipynb` executes from first cell to last with no errors.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/angish872-commits/CMP4294-Assessment-2/blob/main/Angish_Sapkota_26152255.ipynb)
+
+`Angish_Sapkota_26152255.ipynb` executes from first cell to last with no errors. The same notebook runs from the submitted ZIP, a GitHub checkout, or Google Colab (the dataset is located automatically).
 
 ### Run in Google Colab
 
-1. Open Google Colab and upload `Angish_Sapkota_26152255.ipynb`.
-2. Create a `data` folder and upload `ecommerce_2000.csv` to `data/ecommerce_2000.csv`.
-3. Choose **Runtime -> Run all**.
+Open the notebook directly in Google Colab:
 
-The notebook uses relative paths and standard libraries only; Kaggle credentials are not required to run the submitted analysis.
+https://colab.research.google.com/github/angish872-commits/CMP4294-Assessment-2/blob/main/Angish_Sapkota_26152255.ipynb
+
+1. Choose **Runtime -> Run all**.
+2. The notebook locates `ecommerce_2000.csv` automatically: it uses the CSV beside the notebook, or `data/ecommerce_2000.csv` in a GitHub/Colab checkout, or downloads the exact verified CSV from this repository.
+3. Standard libraries only; no Kaggle credentials, Google Drive mount, or absolute paths are required.
 
 ## Final report QA
 
@@ -73,7 +80,9 @@ The final PDF contains:
 - 105-word abstract;
 - 7 figures;
 - 6 tables;
-- 10 verified references;\n- 7 code excerpts taken from the submitted notebook;\n- direct Google Colab and GitHub reproducibility links.
+- 10 verified references;
+- 7 code excerpts taken from the submitted notebook;
+- direct Google Colab and GitHub reproducibility links.
 
 ## Repository structure
 
@@ -104,3 +113,4 @@ CMP4294-Assessment-2/
 
 **Submission package built and verified.** Before Moodle submission, the student should read the final
 PDF once and confirm the current Moodle filename/cover-sheet instructions.
+

@@ -7,7 +7,7 @@
 - Final ZIP: Angish_Sapkota_26152255.zip
 - ZIP contents: Angish_Sapkota_26152255.ipynb, ecommerce_2000.csv
 - Dataset: 2000 rows x 8 columns
-- Notebook: 37 cells (18 code)
+- Notebook: 40 cells (18 code)
 - Approximate main-body word count: 1995 (code listings and figures excluded)
 - Abstract word count: 105
 - Rendered page brightness mean: 230.6
@@ -15,9 +15,9 @@
 
 ## Checks
 
-- PASS - **Final PDF exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.pdf
-- PASS - **Final ZIP exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
-- PASS - **LaTeX source exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
+- PASS - **Final PDF exists**: /Users/ariksapkota/CMP4294-Assessment-2/Angish_Sapkota_26152255.pdf
+- PASS - **Final ZIP exists**: /Users/ariksapkota/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
+- PASS - **LaTeX source exists**: /Users/ariksapkota/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
 - PASS - **PDF page count**: 22 pages
 - PASS - **Anonymous report content**: Student name absent from PDF content
 - PASS - **Student number present**: Cover contains student number
@@ -72,7 +72,7 @@
 - PASS - **Visual sanity page-22.png**: 1191x1684, mean=250.7, black_ratio=0.0092
 - PASS - **ZIP contents exact**: ['Angish_Sapkota_26152255.ipynb', 'ecommerce_2000.csv']
 - PASS - **Dataset dimensions**: 2000 rows x 8 columns
-- PASS - **Notebook structure**: 37 cells; 18 code
+- PASS - **Notebook structure**: 40 cells; 18 code
 - PASS - **Main-body word-count range**: approx. 1995 words excluding code listings/figures
 - PASS - **Abstract word-count range**: 105 words
 - PASS - **References alphabetical**: Reference entries found in expected alphabetical order

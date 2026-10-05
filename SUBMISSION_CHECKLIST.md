@@ -26,7 +26,7 @@ The ZIP has been automatically verified to contain **only**:
 - [x] Abstract approximately 105 words
 - [x] 7 notebook code excerpts included and readable\n- [x] Google Colab link and CSV preview included\n- [x] References alphabetical and aligned with the final report
 - [x] Final dataset 2,000 rows x 8 columns
-- [x] Notebook 37 cells, including 18 code cells
+- [x] Notebook 40 cells, including 18 code cells
 - [x] K-Means results and report values match the verified analysis
 - [x] Final ZIP contents verified exactly
 
@@ -48,3 +48,4 @@ Full automated evidence: `report/FINAL_SUBMISSION_QA.md`.
 - Dataset: `data/ecommerce_2000.csv`
 - Final report source: `report/Angish_Sapkota_26152255.tex`
 - Final QA: `report/FINAL_SUBMISSION_QA.md`
+
