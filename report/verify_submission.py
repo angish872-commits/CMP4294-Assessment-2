@@ -40,12 +40,12 @@ page_text = [page.get_text("text") for page in doc]
 all_text = "\n".join(page_text)
 upper_text = all_text.upper()
 
-add("Anonymous report content", "ANGISH SAPKOTA" not in upper_text, "Student name absent from PDF content")
+add("Student name present", "MD SAPOTA" in upper_text, "Cover contains MD Sapota")
 add("Student number present", "26152255" in page_text[0], "Cover contains student number")
 add("Module code present", ("CMP4294" in page_text[0] or "CMP 4294" in page_text[0]), "Cover contains CMP4294")
 add("Cover has sample-style fields",
-    all(x in page_text[0] for x in ["Student Name", "Student ID", "Module Leader"]),
-    "Cover includes the same field structure as the supplied sample while preserving anonymity")
+    all(x in page_text[0] for x in ["Student Name", "Student ID", "Module Leader", "Mariam Adedoyin-Olowe"]),
+    "Cover includes the supplied sample structure, student name, ID and module leader")
 
 required = [
     "Domain Description",
@@ -62,7 +62,7 @@ add("Required sections present", all(h in all_text for h in required), "All requ
 add("Contents page present", "Contents" in page_text[1], "Page 2")
 add("Table of Figures present", "Table of Figures" in page_text[2], "Page 3")
 add("Acknowledgement present", "Acknowledgement" in all_text, "Front matter includes acknowledgement")
-add("Anonymous external-link content", "angish872" not in all_text.lower() and "Angish_Sapkota" not in all_text, "Repository identity and named notebook path are absent from PDF content")
+add("Repository link omitted from report", "angish872" not in all_text.lower(), "Repository identity is not displayed inside the report")
 add("CSV evidence present", "VINTAGE DOILY TRAVEL SEWING KIT" in all_text, "Report includes actual CSV preview rows")
 
 for caption in [
@@ -193,9 +193,9 @@ lines += [
     "",
     "## Manual visual review checklist",
     "",
-    "- Cover page follows the supplied sample's information structure without copying its project content.",
+    "- Cover page follows the supplied sample's visual/information structure and includes Sunway + BCU branding.",
+    "- Cover contains MD Sapota, student ID 26152255 and module leader Mariam Adedoyin-Olowe.",
     "- Contents and Table of Figures are complete.",
-    "- Report content is anonymous: no student name or repository identity is displayed.",
     "- Code evidence reflects the current notebook loading/inspection logic and is readable.",
     "- CSV preview uses actual rows from ecommerce_2000.csv.",
     "- Figure 1 explicitly states zero missing values and explains the overlapping cancellation/non-positive-quantity counts.",
