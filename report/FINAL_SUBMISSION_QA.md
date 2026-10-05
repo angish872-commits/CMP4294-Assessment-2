@@ -15,9 +15,9 @@
 
 ## Checks
 
-- PASS - **Final PDF exists**: /Users/ariksapkota/CMP4294-Assessment-2/Angish_Sapkota_26152255.pdf
-- PASS - **Final ZIP exists**: /Users/ariksapkota/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
-- PASS - **LaTeX source exists**: /Users/ariksapkota/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
+- PASS - **Final PDF exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.pdf
+- PASS - **Final ZIP exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/Angish_Sapkota_26152255.zip
+- PASS - **LaTeX source exists**: /home/runner/work/CMP4294-Assessment-2/CMP4294-Assessment-2/report/Angish_Sapkota_26152255.tex
 - PASS - **PDF page count**: 22 pages
 - PASS - **Anonymous report content**: Student name absent from PDF content
 - PASS - **Student number present**: Cover contains student number
