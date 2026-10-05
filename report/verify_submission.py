@@ -117,7 +117,7 @@ for p in qa_pages:
 
 with zipfile.ZipFile(ZIP) as zf:
     names = sorted(zf.namelist())
-expected_zip = sorted([f"{BASENAME}.ipynb", "ecommerce_2000.csv"])
+expected_zip = sorted([f"{BASENAME}.pdf", f"{BASENAME}.ipynb", "ecommerce_2000.csv"])
 add("ZIP contents exact", names == expected_zip, f"{names}")
 
 df = pd.read_csv(DATASET)
