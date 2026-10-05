@@ -42,7 +42,7 @@ upper_text = all_text.upper()
 
 add("Anonymous report content", "ANGISH SAPKOTA" not in upper_text, "Student name absent from PDF content")
 add("Student number present", "26152255" in page_text[0], "Cover contains student number")
-add("Module code present", "CMP4294" in page_text[0], "Cover contains CMP4294")
+add("Module code present", ("CMP4294" in page_text[0] or "CMP 4294" in page_text[0]), "Cover contains CMP4294")
 add("Cover has sample-style fields",
     all(x in page_text[0] for x in ["Student Name", "Student ID", "Module Leader"]),
     "Cover includes the same field structure as the supplied sample while preserving anonymity")
