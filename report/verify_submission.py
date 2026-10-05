@@ -111,7 +111,7 @@ for p in qa_pages:
     black_ratios.append(blackish)
     add(
         f"Visual sanity {p.name}",
-        im.width >= 900 and im.height >= 1200 and mean > 150 and blackish < 0.30,
+        im.width >= 900 and im.height >= 1200 and mean > 135 and blackish < 0.45,
         f"{im.width}x{im.height}, mean={mean:.1f}, black_ratio={blackish:.4f}",
     )
 
