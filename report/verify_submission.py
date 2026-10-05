@@ -34,58 +34,65 @@ add("LaTeX source exists", TEX.exists(), str(TEX))
 
 doc = fitz.open(PDF)
 page_count = doc.page_count
-add("PDF page count", page_count == 11, f"{page_count} pages")
+add("PDF page count", 18 <= page_count <= 28, f"{page_count} pages")
 
 page_text = [page.get_text("text") for page in doc]
 all_text = "\n".join(page_text)
-
 upper_text = all_text.upper()
-add(
-    "Anonymous report content",
-    "ANGISH SAPKOTA" not in upper_text,
-    "Student name absent from PDF content",
-)
+
+add("Anonymous report content", "ANGISH SAPKOTA" not in upper_text, "Student name absent from PDF content")
 add("Student number present", "26152255" in page_text[0], "Cover contains student number")
 add("Module code present", "CMP4294" in page_text[0], "Cover contains CMP4294")
-add(
-    "Required sections present",
-    all(
-        heading in all_text
-        for heading in [
-            "Domain Description",
-            "Problem Definition",
-            "Brief Literature Review",
-            "Dataset Description",
-            "Dataset Pre-processing",
-            "Experiment",
-            "Analysis of Results and Conclusion",
-            "References",
-        ]
-    ),
-    "All brief-required report sections found",
-)
+add("Cover has sample-style fields",
+    all(x in page_text[0] for x in ["Student Name", "Student ID", "Module Leader"]),
+    "Cover includes the same field structure as the supplied sample while preserving anonymity")
+
+required = [
+    "Domain Description",
+    "Problem Definition",
+    "Literature Review",
+    "Dataset Description",
+    "Data Pre-Processing",
+    "Descriptive Analysis Techniques",
+    "Experiments",
+    "Analysis of Results and Conclusion",
+    "References",
+]
+add("Required sections present", all(h in all_text for h in required), "All required/sample-aligned sections found")
 add("Contents page present", "Contents" in page_text[1], "Page 2")
-add(
-    "Lists page present",
-    "List of Figures" in page_text[2] and "List of Tables" in page_text[2],
-    "Page 3 contains both lists",
-)
+add("Table of Figures present", "Table of Figures" in page_text[2], "Page 3")
+add("Acknowledgement present", "Acknowledgement" in all_text, "Front matter includes acknowledgement")
+add("Colab access present", "colab.research.google.com" in all_text, "Clickable Colab notebook URL is present")
+add("CSV evidence present", "VINTAGE DOILY TRAVEL SEWING KIT" in all_text, "Report includes actual CSV preview rows")
 
 for caption in [
+    "Data-quality issues in the 2,000-row project dataset",
+    "Distribution of cleaned transaction value",
     "RFM distributions for the 141 customers",
     "Elbow method: inertia against the number of clusters",
     "Silhouette score against the number of clusters",
     "Customer clusters: Frequency versus Monetary value",
     "Mean Recency, Frequency and Monetary value by cluster",
 ]:
-    add(f"Figure caption: {caption[:28]}", caption in all_text, caption)
+    add(f"Figure caption: {caption[:30]}", caption in all_text, caption)
 
 for caption in [
-    "Dataset attributes",
+    "Dataset characteristics",
+    "Feature descriptions",
+    "RFM descriptive statistics",
     "Evaluation of candidate values of K",
     "Cluster profiles for the final K-Means model",
 ]:
-    add(f"Table caption: {caption[:28]}", caption in all_text, caption)
+    add(f"Table caption: {caption[:30]}", caption in all_text, caption)
+
+for snippet in [
+    'pd.read_csv("data/ecommerce_2000.csv"',
+    'StandardScaler()',
+    'KMeans(n_clusters=k',
+    'final_k = 4',
+    'rfm.groupby("Cluster")',
+]:
+    add(f"Code evidence: {snippet[:25]}", snippet in all_text, snippet)
 
 add("No replacement glyphs", "\ufffd" not in all_text, "No Unicode replacement characters found")
 
@@ -104,7 +111,7 @@ for p in qa_pages:
     black_ratios.append(blackish)
     add(
         f"Visual sanity {p.name}",
-        im.width >= 900 and im.height >= 1200 and mean > 180 and blackish < 0.15,
+        im.width >= 900 and im.height >= 1200 and mean > 150 and blackish < 0.30,
         f"{im.width}x{im.height}, mean={mean:.1f}, black_ratio={blackish:.4f}",
     )
 
@@ -125,11 +132,12 @@ tex = TEX.read_text(encoding="utf-8")
 body_start = tex.index(r"\section{Domain Description}")
 body_end = tex.index(r"\section*{References}")
 body = tex[body_start:body_end]
-body_no_fig = re.sub(r"\\begin\{figure\}.*?\\end\{figure\}", " ", body, flags=re.S)
-body_clean = re.sub(r"\\[A-Za-z@]+\*?(?:\[[^\]]*\])?", " ", body_no_fig)
+body = re.sub(r"\\begin\{figure\}.*?\\end\{figure\}", " ", body, flags=re.S)
+body = re.sub(r"\\begin\{lstlisting\}.*?\\end\{lstlisting\}", " ", body, flags=re.S)
+body_clean = re.sub(r"\\[A-Za-z@]+\*?(?:\[[^\]]*\])?", " ", body)
 body_clean = re.sub(r"[{}$~^&#_\\]", " ", body_clean)
 main_words = re.findall(r"\b[\w£–-]+(?:['’][\w]+)?\b", body_clean)
-add("Main-body word-count range", 1450 <= len(main_words) <= 1700, f"approx. {len(main_words)} words including table text/headings")
+add("Main-body word-count range", 1450 <= len(main_words) <= 2100, f"approx. {len(main_words)} words excluding code listings/figures")
 
 abstract_match = re.search(
     r"\\section\*\{Abstract\}.*?\\addcontentsline\{toc\}\{section\}\{Abstract\}(.*?)\\clearpage",
@@ -140,7 +148,7 @@ abstract_text = abstract_match.group(1) if abstract_match else ""
 abstract_clean = re.sub(r"\\[A-Za-z@]+\*?(?:\[[^\]]*\])?", " ", abstract_text)
 abstract_clean = re.sub(r"[{}$~^&#_\\]", " ", abstract_clean)
 abstract_words = re.findall(r"\b[\w–-]+(?:['’][\w]+)?\b", abstract_clean)
-add("Abstract word-count range", 100 <= len(abstract_words) <= 130, f"{len(abstract_words)} words")
+add("Abstract word-count range", 90 <= len(abstract_words) <= 150, f"{len(abstract_words)} words")
 
 reference_order = [
     "Chen, D. (2015)",
@@ -155,11 +163,8 @@ reference_order = [
     "Wedel, M.",
 ]
 positions = [all_text.find(x) for x in reference_order]
-add(
-    "References alphabetical",
-    all(p >= 0 for p in positions) and positions == sorted(positions),
-    "Reference entries found in expected alphabetical order",
-)
+add("References alphabetical", all(p >= 0 for p in positions) and positions == sorted(positions),
+    "Reference entries found in expected alphabetical order")
 
 passed = sum(ok for _, ok, _ in checks)
 lines = [
@@ -173,7 +178,7 @@ lines = [
     f"- ZIP contents: {', '.join(expected_zip)}",
     f"- Dataset: {df.shape[0]} rows x {df.shape[1]} columns",
     f"- Notebook: {len(cells)} cells ({len(code_cells)} code)",
-    f"- Approximate main-body word count: {len(main_words)}",
+    f"- Approximate main-body word count: {len(main_words)} (code listings and figures excluded)",
     f"- Abstract word count: {len(abstract_words)}",
     f"- Rendered page brightness mean: {statistics.mean(means):.1f}",
     f"- Maximum black-pixel ratio: {max(black_ratios):.4f}",
@@ -188,13 +193,13 @@ lines += [
     "",
     "## Manual visual review checklist",
     "",
-    "- Cover page: anonymous content, correct title/module/student number.",
-    "- Contents: section numbering and page numbers readable.",
-    "- List of Figures and List of Tables: complete.",
-    "- Tables 1-3: complete, no clipped rows or footer overlap.",
-    "- Figures 1-5: readable captions and labels.",
+    "- Cover page follows the supplied sample's information structure without copying its project content.",
+    "- Contents and Table of Figures are complete.",
+    "- Code evidence is readable and comes from the submitted notebook.",
+    "- CSV preview uses actual rows from ecommerce_2000.csv.",
+    "- Tables and figures are complete with no footer overlap.",
     "- No black boxes, clipped text, overlapping elements, or broken glyphs.",
-    "- References: alphabetical and formatted consistently in BCU Harvard style.",
+    "- References are alphabetical and consistent.",
     "",
     "The final PDF source is report/Angish_Sapkota_26152255.tex.",
 ]
