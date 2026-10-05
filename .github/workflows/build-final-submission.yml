@@ -2,7 +2,7 @@ name: Build final CMP4294 submission
 
 on:
   push:
-    branches: [main, final-report-polish]
+    branches: [main, final-report-polish, final-report-sample-cover]
     paths:
       - ".github/workflows/build-final-submission.yml"
       - "report/Angish_Sapkota_26152255.tex"
