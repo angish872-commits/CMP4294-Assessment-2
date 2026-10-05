@@ -34,6 +34,7 @@ for p in sorted(qa.glob("page-*.png")):
 PY
 
 cd "$ROOT"
+# Single-slot Moodle submission: bundle report, notebook, and dataset together.
 rm -f "${FINAL_BASENAME}.zip"
 zip -j "${FINAL_BASENAME}.zip" \
     "${FINAL_BASENAME}.pdf" \
