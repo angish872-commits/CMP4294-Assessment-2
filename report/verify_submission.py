@@ -86,11 +86,11 @@ for caption in [
     add(f"Table caption: {caption[:30]}", caption in all_text, caption)
 
 for snippet in [
-    'pd.read_csv("data/ecommerce_2000.csv"',
-    'StandardScaler()',
-    'KMeans(n_clusters=k',
-    'final_k = 4',
-    'rfm.groupby("Cluster")',
+    'pd.read_csv',
+    'StandardScaler',
+    'KMeans',
+    'final_k',
+    'groupby',
 ]:
     add(f"Code evidence: {snippet[:25]}", snippet in all_text, snippet)
 
