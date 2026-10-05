@@ -14,7 +14,7 @@
 
 The PDF itself follows the brief's anonymous-marking instruction and contains the **student number only**. The full-name filename follows the working submission naming convention.
 
-Final automated QA: **37/37 checks PASS**. See `report/FINAL_SUBMISSION_QA.md`.
+Final automated QA: **61/61 checks PASS**. See `report/FINAL_SUBMISSION_QA.md`.
 
 ## Research question
 
@@ -68,12 +68,12 @@ The final report is built from `report/Angish_Sapkota_26152255.tex`. The reprodu
 - verifies the exact ZIP contents.
 
 The final PDF contains:
-- 11 pages;
-- approximately 1,591 main-body words including table text/headings;
+- 22 pages;
+- approximately 1,995 main-body words, excluding Python code listings and figures;
 - 105-word abstract;
-- 5 figures;
-- 3 tables;
-- 10 verified references.
+- 7 figures;
+- 6 tables;
+- 10 verified references;\n- 7 code excerpts taken from the submitted notebook;\n- direct Google Colab and GitHub reproducibility links.
 
 ## Repository structure
 
