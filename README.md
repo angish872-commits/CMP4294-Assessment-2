@@ -5,19 +5,19 @@
 **Student:** Angish Sapkota (26152255)  
 **Project title:** Customer Segmentation in E-Commerce Using Purchasing Behaviour and K-Means Clustering
 
-## FINAL SUBMISSION FILES
+## FINAL SUBMISSION FILE
 
-1. `Angish_Sapkota_26152255.pdf`
-2. `Angish_Sapkota_26152255.zip`
+Submit the single file:
 
-The ZIP contains exactly these two files:
+`Angish_Sapkota_26152255.zip`
 
+The ZIP contains exactly these three files at its root:
+
+- `Angish_Sapkota_26152255.pdf`
 - `Angish_Sapkota_26152255.ipynb`
 - `ecommerce_2000.csv`
 
-The PDF itself follows the brief's anonymous-marking instruction and contains the **student number only**. The full-name filename follows the working submission naming convention.
-
-Final automated QA: **61/61 checks PASS**. See `report/FINAL_SUBMISSION_QA.md`.
+Final automated QA is recorded in `report/FINAL_SUBMISSION_QA.md`.
 
 ## Research question
 
@@ -75,14 +75,14 @@ The final report is built from `report/Angish_Sapkota_26152255.tex`. The reprodu
 - verifies the exact ZIP contents.
 
 The final PDF contains:
-- 22 pages;
-- approximately 1,995 main-body words, excluding Python code listings and figures;
+- 25 pages;
+- approximately 2,080 main-body words, excluding Python code listings and figures;
 - 105-word abstract;
 - 7 figures;
 - 6 tables;
 - 10 verified references;
 - 7 code excerpts taken from the submitted notebook;
-- direct Google Colab and GitHub reproducibility links.
+- sample-style Sunway/BCU cover and verified reproducibility files.
 
 ## Repository structure
 
