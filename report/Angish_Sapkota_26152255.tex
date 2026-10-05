@@ -193,7 +193,7 @@ Behavioural features & Recency, Frequency, Monetary value\\
 \end{table}
 
 \subsection{CSV Preview and Notebook Access}
-Table~\ref{tab:preview} shows actual rows from the submitted \texttt{ecommerce\_2000.csv}; these are not fabricated examples. The complete Python analysis is provided in the separately submitted Jupyter notebook. The notebook is structured to run sequentially in Google Colab or Jupyter and uses the exact CSV included in the submission ZIP. Repository-specific links are intentionally omitted from this anonymously marked report.
+Table~\ref{tab:preview} shows actual rows from the submitted \texttt{ecommerce\_2000.csv}. The complete analysis is in the separately submitted Jupyter notebook, which runs sequentially in Google Colab or Jupyter with the included CSV. Repository links are omitted to preserve anonymous marking.
 
 \begin{table}[H]
 \centering
@@ -235,11 +235,11 @@ Country & Categorical & Customer country\\
 % ---------- PREPROCESSING ----------
 \section{Data Pre-Processing}
 \subsection{Loading and Inspecting the Dataset}
-The notebook first loads the exact CSV included in the submission and inspects its shape, columns, data types, missing values, duplicates and obvious transaction-quality problems. The following code is taken directly from the submitted notebook.
+The notebook loads the submitted CSV and checks its shape, data types, missing values, duplicates, cancellations, quantities and prices.
 
 \textbf{Code excerpt 1: loading and initial inspection}
 
-\noindent The submitted notebook first checks for the CSV beside the notebook, then for the repository-style \texttt{data/} path. A verified remote fallback is used only when neither local copy is available. The excerpt below shows the current local-path logic used by the notebook without exposing repository-specific identity inside this anonymously marked report.
+\noindent The notebook checks for the CSV beside the notebook and then in \texttt{data/}. If neither copy exists, its verified Colab fallback retrieves the same dataset. The repository-specific URL is omitted here to preserve anonymity.
 
 \begin{lstlisting}[style=pythonshot]
 from pathlib import Path
@@ -288,25 +288,18 @@ Unique customers: 141
 
 \begin{figure}[H]
 \centering
-\begin{minipage}[c]{0.42\textwidth}
+\fbox{\parbox{0.88\textwidth}{
 \centering
-\fbox{\parbox[c][4.3cm][c]{0.88\linewidth}{
-\centering
-\textbf{Missing values: 0}\\[0.25cm]
-No missing values were found across any of the eight submitted attributes.
-}}
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.54\textwidth}
-\centering
-\includegraphics[width=\linewidth,trim=700 0 0 0,clip]{01_missing_values.png}
-\end{minipage}
-\caption{Data-quality issues in the 2,000-row project dataset. The left panel explicitly records zero missing values. The 185 cancelled invoices are the same 185 rows with non-positive quantity, so these two bars overlap and must not be added together.}\label{fig:quality}
+\textbf{Missing values: 0 across all 8 attributes.}\quad
+The 185 cancelled invoices are the same 185 rows with non-positive quantity; the two checks overlap.
+}}\\[0.45cm]
+\includegraphics[width=0.95\textwidth]{01_missing_values.png}
+\caption{Data-quality issues in the 2,000-row project dataset. The empty missing-values panel correctly represents zero missing values; cancellation and non-positive-quantity counts overlap.}\label{fig:quality}
 \end{figure}
 \clearpage
 
 \subsection{Cleaning the Data and Creating Transaction Value}
-Cancelled invoices were removed because they represent returns rather than purchases. In this project subset, the 185 cancelled invoices are the same 185 rows with non-positive quantity, so those two quality checks describe an overlapping set rather than 370 separate rows. Rows with non-positive quantity or unit price were excluded from spending analysis, exact duplicates were removed, and CustomerID was required for customer-level features. The resulting dataset contains 1,814 valid rows and 141 customers.
+Cancelled invoices were removed because they represent returns rather than purchases. The 185 cancellations are the same 185 rows with non-positive quantity, so the counts overlap rather than represent 370 rows. Non-positive quantities/prices and exact duplicates were excluded, and CustomerID was required. The cleaned dataset contains 1,814 rows and 141 customers.
 
 \textbf{Code excerpt 2: cleaning and TotalPrice}
 \begin{lstlisting}[style=pythonshot]
