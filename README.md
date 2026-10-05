@@ -68,7 +68,7 @@ https://colab.research.google.com/github/angish872-commits/CMP4294-Assessment-2/
 The final report is built from `report/Angish_Sapkota_26152255.tex`. The reproducible build:
 
 - compiles the report with XeLaTeX;
-- renders all 11 PDF pages to PNG for visual inspection;
+- renders every final PDF page to PNG for visual inspection;
 - checks required sections, captions, tables and references;
 - checks anonymous PDF content;
 - verifies the 2,000 x 8 dataset;
@@ -111,6 +111,5 @@ CMP4294-Assessment-2/
 
 ## Status
 
-**Submission package built and verified.** Before Moodle submission, the student should read the final
-PDF once and confirm the current Moodle filename/cover-sheet instructions.
+**Submission package built and verified.** Before Moodle submission, the student should read the final PDF once and confirm the current Moodle filename/cover-sheet instructions. The polished anonymous report variant is maintained on the `final-report-polish` branch so the verified main-branch version remains untouched.
 
